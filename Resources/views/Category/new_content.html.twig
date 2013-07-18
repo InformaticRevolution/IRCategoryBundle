@@ -1,0 +1,14 @@
+{% trans_default_domain 'ir_category' %}
+
+<div class="page-header">
+    <h1>{{ 'category.new.title'|trans }}</h1>
+</div>
+
+<form action="{{ path('ir_category_new', {'parentId': parentId}) }}" {{ form_enctype(form) }} method="POST">
+    {% include 'IRCategoryBundle:Category:form.html.twig' %}
+    <div class="form-actions">
+        <input type="submit" value="{{ 'category.new.save'|trans }}" class="btn btn-large btn-primary" />
+        &nbsp;
+        <a href="{{ path('ir_category_list', {'id': parentId}) }}" class="btn btn-large">{{ 'category.new.cancel'|trans }}</a>         
+    </div> 
+</form>

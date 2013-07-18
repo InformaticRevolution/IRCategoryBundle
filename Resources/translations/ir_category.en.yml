@@ -1,0 +1,27 @@
+# Category
+category: 
+    list:
+        title: Categories
+        column:
+            name: Name
+            actions: Actions
+        button: 
+            new: Add category
+        no_categories: You haven't added any category yet.  
+    new:
+        title: Add category
+        save: Save
+        cancel: Cancel         
+    edit:
+        title: Edit category   
+        save: Save
+        cancel: Cancel         
+    flash:
+        created: The category has been successfully created
+        updated: The category has been successfully updated
+        deleted: The category has been successfully deleted
+
+# Form field labels
+form:
+    category:
+        name : "Name :"

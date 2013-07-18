@@ -1,0 +1,24 @@
+{% trans_default_domain 'ir_category' %}
+
+{% macro breadcrumb(path) %}
+    {% if path is not empty %}
+    <ul class="breadcrumb">    
+        <li>
+            <a href="{{ path('ir_category_list') }}">{{ 'category.list.title'|trans }}</a> 
+            <span class="divider">&#62;</span>
+        </li>
+    {% for category in path %}
+        {% if not loop.last %}
+        <li>
+            <a href="{{ path('ir_category_list', {'id': category.id}) }}">
+                {{ category }}
+            </a> 
+            <span class="divider">&#62;</span>
+        </li>
+        {% else %}
+        <li class="active">{{ category }}</li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+    {% endif %}
+{% endmacro %}

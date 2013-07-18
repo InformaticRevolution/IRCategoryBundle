@@ -1,0 +1,27 @@
+# Category
+category: 
+    list:
+        title: Catégories
+        column:
+            name: Nom
+            actions: Actions
+        button: 
+            new: Ajouter une catégorie
+        no_categories: Aucune catégorie pour le moment.  
+    new:
+        title: Ajouter une catégorie
+        save: Enregistrer
+        cancel: Annuler           
+    edit:
+        title: Modifier une catégorie
+        save: Enregistrer
+        cancel: Annuler        
+    flash:
+        created: La catégorie a été créée
+        updated: La catégorie a été mise à jour
+        deleted: La catégorie a été supprimée
+
+# Form field labels
+form:
+    category:
+        name : "Nom :"

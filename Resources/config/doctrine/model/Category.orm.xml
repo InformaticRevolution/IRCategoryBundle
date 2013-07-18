@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass name="IR\Bundle\CategoryBundle\Entity\Category" repository-class="Gedmo\Tree\Entity\Repository\NestedTreeRepository">
+        <many-to-one field="parent" target-entity="IR\Bundle\CategoryBundle\Model\CategoryInterface" inversed-by="children">
+            <join-column name="parent_id" referenced-column-name="id" on-delete="CASCADE"  />
+            <gedmo:tree-parent />
+            <gedmo:sortable-group />
+        </many-to-one>            
+        
+        <field name="name" column="name" type="string" length="255" />
+        
+        <field name="slug" column="slug" type="string" length="255" unique="true">
+            <gedmo:slug fields="name" unique="true" />
+        </field>
+
+        <field name="position" column="position" type="integer">
+            <gedmo:sortable-position />
+        </field>
+
+        <field name="root" column="tree_root" type="integer" nullable="true">
+            <gedmo:tree-root />
+        </field>
+
+        <field name="left" column="tree_left" type="integer">
+            <gedmo:tree-left />
+        </field>
+        
+        <field name="right" column="tree_right" type="integer">
+            <gedmo:tree-right />
+        </field>
+        
+        <field name="level" column="tree_level" type="integer">
+            <gedmo:tree-level />
+        </field>        
+        
+        <gedmo:tree type="nested" />    
+    </mapped-superclass>
+    
+</doctrine-mapping>

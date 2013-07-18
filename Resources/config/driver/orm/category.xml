@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services 
+                               http://symfony.com/schema/dic/services/services-1.0.xsd">
+  
+    <parameters>
+        <parameter key="ir_category.manager.category.class">IR\Bundle\CategoryBundle\Doctrine\CategoryManager</parameter>
+    </parameters>
+
+    <services>
+        <service id="ir_category.entity_manager" alias="doctrine.orm.default_entity_manager" public="false" />
+        
+        <service id="ir_category.manager.category.default" class="%ir_category.manager.category.class%" public="false">
+            <argument type="service" id="ir_category.entity_manager" />
+            <argument>%ir_category.model.category.class%</argument>
+        </service>          
+    </services>  
+
+</container>

@@ -1,0 +1,6 @@
+ir_category:     
+    category:
+        name:
+            not_blank: Please enter a name
+            min_length: The name must be at least {{ limit }} characters long
+            max_length: The name cannot be longer than {{ limit }} characters      

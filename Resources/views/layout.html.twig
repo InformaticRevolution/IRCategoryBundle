@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+
+        {% block ir_category_stylesheets %}
+            <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap.no-icons.min.css" />
+            <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css" />            
+        {% endblock %}
+    </head>
+    <body>
+        <div class="container">
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ type }}">
+                        {{ message }}
+                        <a class="close" data-dismiss="alert" href="#">&times;</a>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+                
+            {% block ir_category_content %}
+            {% endblock %}
+        </div>
+        {% block ir_category_javascripts %}
+            <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+            <script type="text/javascript" src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>           
+        {% endblock %}
+    </body>
+</html>
