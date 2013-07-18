@@ -47,6 +47,26 @@ abstract class Category implements CategoryInterface
     protected $position;      
 
     /**
+     * @var integer
+     */
+    protected $root;    
+    
+    /**
+     * @var integer
+     */
+    protected $left;
+
+    /**
+     * @var integer
+     */
+    protected $right;    
+    
+    /**
+     * @var integer
+     */
+    protected $level;    
+    
+    /**
      * @var Collection
      */
     protected $children;      

@@ -5,13 +5,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                                       http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <mapped-superclass name="IR\Bundle\CategoryBundle\Entity\Category" repository-class="Gedmo\Tree\Entity\Repository\NestedTreeRepository">
-        <many-to-one field="parent" target-entity="IR\Bundle\CategoryBundle\Model\CategoryInterface" inversed-by="children">
-            <join-column name="parent_id" referenced-column-name="id" on-delete="CASCADE"  />
-            <gedmo:tree-parent />
-            <gedmo:sortable-group />
-        </many-to-one>            
-        
+    <mapped-superclass name="IR\Bundle\CategoryBundle\Model\Category" repository-class="Gedmo\Tree\Entity\Repository\NestedTreeRepository">        
         <field name="name" column="name" type="string" length="255" />
         
         <field name="slug" column="slug" type="string" length="255" unique="true">

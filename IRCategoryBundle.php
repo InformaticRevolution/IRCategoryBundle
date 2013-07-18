@@ -35,7 +35,7 @@ class IRCategoryBundle extends Bundle
     private function addRegisterMappingsPass(ContainerBuilder $container)
     {
         $mappings = array(
-            realpath(__DIR__ . '/Resources/config/doctrine/model') => 'IR\Bundle\CategoryBundle\Entity',
+            realpath(__DIR__ . '/Resources/config/doctrine/model') => 'IR\Bundle\CategoryBundle\Model',
         );   
         
         $container->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver($mappings, array('ir_category.entity_manager')));     
