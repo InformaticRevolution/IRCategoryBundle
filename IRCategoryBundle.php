@@ -38,6 +38,6 @@ class IRCategoryBundle extends Bundle
             realpath(__DIR__ . '/Resources/config/doctrine/model') => 'IR\Bundle\CategoryBundle\Model',
         );   
         
-        $container->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver($mappings, array('ir_category.entity_manager')));     
+        $container->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver($mappings, array('ir_category.model_manager_name'), array('ir_category.backend_type_orm')));     
     }    
 }
