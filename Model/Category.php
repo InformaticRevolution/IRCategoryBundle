@@ -71,6 +71,16 @@ abstract class Category implements CategoryInterface
      */
     protected $children;      
 
+    /**
+     * @var \Datetime
+     */
+    protected $createdAt;
+
+    /**
+     * @var \Datetime
+     */
+    protected $updatedAt;    
+    
     
     /**
      * Constructor.
@@ -210,6 +220,42 @@ abstract class Category implements CategoryInterface
         return $this->children->contains($child);
     }
 
+    /**
+     * {@inheritdoc}
+     */   
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }    
+      
+    /**
+     * {@inheritdoc}
+     */   
+    public function setCreatedAt(\Datetime $datetime)
+    {
+        $this->createdAt = $datetime;
+        
+        return $this;
+    }    
+    
+    /**
+     * {@inheritdoc}
+     */   
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    } 
+  
+    /**
+     * {@inheritdoc}
+     */   
+    public function setUpdatedAt(\Datetime $datetime = null)
+    {
+        $this->updatedAt = $datetime;
+        
+        return $this;
+    }     
+    
     /**
      * Returns the category string representation.
      * 

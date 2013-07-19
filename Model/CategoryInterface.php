@@ -128,6 +128,38 @@ interface CategoryInterface
      *
      * @return Boolean
      */
-    public function hasChild(CategoryInterface $child);    
+    public function hasChild(CategoryInterface $child);
+    
+    /**
+     * Returns the creation time.
+     *
+     * @return \Datetime
+     */
+    public function getCreatedAt(); 
+    
+    /**
+     * Sets the creation time.
+     * 
+     * @param \Datetime $datetime
+     * 
+     * @return CategoryInterface
+     */
+    public function setCreatedAt(\Datetime $datetime);     
+    
+    /**
+     * Returns the last update time.
+     *
+     * @return \Datetime
+     */
+    public function getUpdatedAt();    
+    
+    /**
+     * Sets the last update time.
+     * 
+     * @param \Datetime|null $datetime
+     * 
+     * @return CategoryInterface
+     */
+    public function setUpdatedAt(\Datetime $datetime = null);      
 }
 
