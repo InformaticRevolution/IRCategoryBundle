@@ -96,6 +96,14 @@ class CategoryManager extends AbstractCategoryManager
     /**
      * {@inheritDoc}
      */
+    public function getChildrenCategories(CategoryInterface $category = null, $direct = false, $sortByField = null, $direction = 'ASC', $includeRootCategory = false)
+    {
+        return $this->repository->getChildren($category, $direct, $sortByField, $direction, $includeRootCategory);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
     public function getPath(CategoryInterface $category)
     {
         return $this->repository->getPath($category);
