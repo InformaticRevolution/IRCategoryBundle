@@ -245,7 +245,7 @@ public function registerBundles()
 }
 ```
 
-**b) Enable the tree, sortable and slug extensions in your `config.yml` file**
+**b) Enable the tree, sortable and sluggable and timestampable extensions in your `config.yml` file**
 
 ``` yaml
 # app/config/config.yml
@@ -255,3 +255,4 @@ stof_doctrine_extensions:
             tree: true
             sortable: true
             sluggable: true
+            timestampable: true
