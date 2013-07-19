@@ -16,6 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\ChoiceList\ObjectChoiceList;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Bridge\Doctrine\Form\DataTransformer\CollectionToArrayTransformer;
 use IR\Bundle\CategoryBundle\Manager\CategoryManagerInterface;
 
 /**
@@ -44,17 +45,23 @@ class CategoryChoiceType extends AbstractType
     /**
      * {@inheritdoc}
      */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        if ($options['multiple']) {
+            $builder->addModelTransformer(new CollectionToArrayTransformer());
+        }
+    }    
+
+    /**
+     * {@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $categories = $this->categoryManager->getRootCategories();
+        $categories = $this->categoryManager->getChildrenCategories(null, false, array('root', 'position'));
         
-        $choiceList = function (Options $options) use ($categories) {
-            return new ObjectChoiceList($categories);
-        };
-
         $resolver
             ->setDefaults(array(
-                'choice_list' => $choiceList
+                'choice_list' => new ObjectChoiceList($categories),
             ))              
         ;
     }
