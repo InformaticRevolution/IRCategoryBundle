@@ -67,7 +67,6 @@ public function registerBundles()
 namespace Acme\CategoryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use IR\Bundle\CategoryBundle\Model\Category as BaseCategory;
 
 /**
@@ -82,15 +81,6 @@ class Category extends BaseCategory
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
-     * 
-     * @Gedmo\TreeParent
-     * @Gedmo\SortableGroup
-     */
-    protected $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent", cascade={"all"}, orphanRemoval=true)
@@ -147,17 +137,6 @@ Acme\CategoryBundle\Entity\Category:
             type: integer
             generator:
                 strategy: AUTO
-    manyToOne:
-        parent:
-            targetEntity: Category
-            inversedBy: children
-            joinColumn:
-                name: parent_id
-                referencedColumnName: id
-                onDelete: CASCADE
-            gedmo:
-                - treeParent
-                - sortableGroup
     oneToMany:
         children:
             targetEntity: Category
@@ -182,12 +161,6 @@ In XML:
             <generator strategy="AUTO" />
         </id> 
 
-        <many-to-one field="parent" target-entity="Category" inversed-by="children">
-            <join-column name="parent_id" referenced-column-name="id" on-delete="CASCADE" />
-            <gedmo:tree-parent />
-            <gedmo:sortable-group />
-        </many-to-one>   
-
         <one-to-many field="children" target-entity="Category" mapped-by="parent" orphan-removal="true">
             <cascade>
                 <cascade-all />
@@ -200,13 +173,27 @@ In XML:
 
 ### Step 4: Configure the IRCategoryBundle
 
-Add the bundle minimum configuration to your `config.yml` file:
+Add the following configuration to your `config.yml` file:
+
+**a) Add the bundle minimum configuration**
 
 ``` yaml
 # app/config/config.yml
 ir_category:
     db_driver: orm # orm is the only available driver for the moment 
     category_class: Acme\CategoryBundle\Entity\Category
+```
+
+**b) Add the CategoryInterface path to the RTEL**
+
+``` yaml
+# app/config/config.yml
+doctrine:
+    # ....
+    orm:
+        # ....
+        resolve_target_entities:
+            IR\Bundle\CategoryBundle\Model\CategoryInterface: Acme\CategoryBundle\Entity\Category
 ```
 
 ### Step 5: Import IRCategoryBundle routing files
