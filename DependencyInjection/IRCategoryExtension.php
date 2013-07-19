@@ -41,6 +41,7 @@ class IRCategoryExtension extends Extension
         $container->setParameter('ir_product.db_driver', $config['db_driver']);
         $container->setParameter('ir_category.model.category.class', $config['category_class']);
         $container->setParameter('ir_category.template.engine', $config['template']['engine']);
+        $container->setParameter('ir_category.backend_type_' . $config['db_driver'], true);
         
         $container->setAlias('ir_category.manager.category', $config['category_manager']);
         
