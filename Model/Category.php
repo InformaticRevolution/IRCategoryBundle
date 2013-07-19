@@ -25,11 +25,6 @@ abstract class Category implements CategoryInterface
      * @var mixed
      */
     protected $id; 
-
-    /**
-     * @var CategoryInterface
-     */
-    protected $parent;    
     
     /**
      * @var string
@@ -41,6 +36,11 @@ abstract class Category implements CategoryInterface
      */
     protected $slug;    
 
+    /**
+     * @var CategoryInterface
+     */
+    protected $parent;     
+    
     /**
      * @var integer
      */
@@ -101,32 +101,6 @@ abstract class Category implements CategoryInterface
     /**
      * {@inheritdoc}
      */
-    public function isRoot()
-    {
-        return !$this->getParent();
-    }    
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setParent(CategoryInterface $parent = null)
-    {
-        $this->parent = $parent;
-        
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getName()
     {
         return $this->name;
@@ -159,6 +133,32 @@ abstract class Category implements CategoryInterface
         
         return $this;
     }    
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isRoot()
+    {
+        return !$this->getParent();
+    }    
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setParent(CategoryInterface $parent = null)
+    {
+        $this->parent = $parent;
+        
+        return $this;
+    }
 
     /**
      * {@inheritdoc}

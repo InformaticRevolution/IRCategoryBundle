@@ -24,29 +24,6 @@ interface CategoryInterface
      * @return mixed
      */
     public function getId();      
-
-    /**
-     * Checks whether category is root.
-     *
-     * @return Boolean
-     */
-    public function isRoot();    
-    
-    /**
-     * Returns the parent.
-     *
-     * @return CategoryInterface|null
-     */
-    public function getParent();
-
-    /**
-     * Sets the parent.
-     *
-     * @param CategoryInterface|null $parent
-     * 
-     * @return CategoryInterface
-     */
-    public function setParent(CategoryInterface $parent = null);  
     
     /**
      * Returns the name.
@@ -80,6 +57,29 @@ interface CategoryInterface
      */
     public function setSlug($slug);    
 
+    /**
+     * Checks whether category is root.
+     *
+     * @return Boolean
+     */
+    public function isRoot();    
+    
+    /**
+     * Returns the parent.
+     *
+     * @return CategoryInterface|null
+     */
+    public function getParent();
+
+    /**
+     * Sets the parent.
+     *
+     * @param CategoryInterface|null $parent
+     * 
+     * @return CategoryInterface
+     */
+    public function setParent(CategoryInterface $parent = null);     
+    
     /**
      * Returns the position.
      *
