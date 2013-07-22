@@ -35,22 +35,12 @@ class CategoryChoiceType extends AbstractType
     /**
      * Constructor.
      * 
-     * @param CategoryManagerInterface  $categoryManager
+     * @param CategoryManagerInterface $categoryManager
      */
     public function __construct(CategoryManagerInterface $categoryManager)
     {
         $this->categoryManager = $categoryManager;
     }
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        if ($options['multiple']) {
-            $builder->addModelTransformer(new CollectionToArrayTransformer());
-        }
-    }    
 
     /**
      * {@inheritdoc}
@@ -58,7 +48,7 @@ class CategoryChoiceType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $categories = $this->categoryManager->getChildrenCategories(null, false, array('root', 'position'));
-        
+  
         $resolver
             ->setDefaults(array(
                 'choice_list' => new ObjectChoiceList($categories),

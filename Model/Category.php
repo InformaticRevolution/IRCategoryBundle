@@ -182,7 +182,7 @@ abstract class Category implements CategoryInterface
      * {@inheritdoc}
      */
     public function getChildren()
-    {
+    {   
         return $this->children;
     }
     
