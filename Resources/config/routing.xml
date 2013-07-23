@@ -4,9 +4,9 @@
         xsi:schemaLocation="http://symfony.com/schema/routing 
                             http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="ir_category_list" pattern="/list/{id}" methods="GET">
+    <route id="ir_category_list" pattern="/list/{parentId}" methods="GET">
         <default key="_controller">IRCategoryBundle:Category:list</default>
-        <default key="id" />
+        <default key="parentId" />
     </route>  
     
     <route id="ir_category_new" pattern="/new/{parentId}" methods="GET|POST">

@@ -19,7 +19,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use IR\Bundle\CategoryBundle\IRCategoryEvents;
 use IR\Bundle\CategoryBundle\Event\CategoryEvent;
-use IR\Bundle\CategoryBundle\Model\CategoryInterface;
 
 /**
  * Controller managing the categories.
@@ -29,27 +28,27 @@ use IR\Bundle\CategoryBundle\Model\CategoryInterface;
 class CategoryController extends ContainerAware
 {
     /**
-     * List all the categories.
+     * List all the categories of given category.
      */
-    public function listAction($id, $path = array())
+    public function listAction($parentId = null, $path = array())
     {
-        $category = $id ? $this->findCategoryById($id) : null;
+        $parent = $parentId ? $this->findCategoryById($parentId) : null;
         
         /* @var $categoryManager \IR\Bundle\CategoryBundle\Manager\CategoryManagerInterface */
         $categoryManager = $this->container->get('ir_category.manager.category');
 
-        if (null !== $category) {
-            $path = $categoryManager->getPath($category);
-            $categories = $category->getChildren();
+        if (null !== $parent) {
+            $path = $categoryManager->getPath($parent);
+            $categories = $parent->getChildren();
         }
         else {
             $categories = $categoryManager->getRootCategories('position', 'asc');
         }
 
         return $this->container->get('templating')->renderResponse('IRCategoryBundle:Category:list.html.'.$this->getEngine(), array(
-            'id' => $id,
             'path' => $path,
-            'category' => $category,
+            'parent' => $parent,
+            'parentId' => $parentId,
             'categories' => $categories,
         ));
     }     
@@ -57,7 +56,7 @@ class CategoryController extends ContainerAware
     /**
      * Create a new category: show the new form.
      */
-    public function newAction(Request $request, $parentId)
+    public function newAction(Request $request, $parentId = null)
     {               
         $parent = $parentId ? $this->findCategoryById($parentId) : null;
 
@@ -76,7 +75,7 @@ class CategoryController extends ContainerAware
             $dispatcher = $this->container->get('event_dispatcher');                
             $dispatcher->dispatch(IRCategoryEvents::CATEGORY_CREATE_COMPLETED, new CategoryEvent($category));
                 
-            return new RedirectResponse($this->container->get('router')->generate('ir_category_list', array('id' => $parentId)));                      
+            return new RedirectResponse($this->container->get('router')->generate('ir_category_list', array('parentId' => $parentId)));                      
         }
         
         return $this->container->get('templating')->renderResponse('IRCategoryBundle:Category:new.html.'.$this->getEngine(), array(
@@ -91,7 +90,7 @@ class CategoryController extends ContainerAware
     public function editAction(Request $request, $id)
     {
         $category = $this->findCategoryById($id);
-        $parentId = $this->getParentId($category);
+        $parentId = !$category->isRoot() ? $category->getParent()->getId() : null;
         
         $form = $this->container->get('ir_category.form.category');      
         $form->setData($category);
@@ -104,7 +103,7 @@ class CategoryController extends ContainerAware
             $dispatcher = $this->container->get('event_dispatcher');              
             $dispatcher->dispatch(IRCategoryEvents::CATEGORY_EDIT_COMPLETED, new CategoryEvent($category));
                         
-            return new RedirectResponse($this->container->get('router')->generate('ir_category_list', array('id' => $parentId)));                     
+            return new RedirectResponse($this->container->get('router')->generate('ir_category_list', array('parentId' => $parentId)));                     
         }        
         
         return $this->container->get('templating')->renderResponse('IRCategoryBundle:Category:edit.html.'.$this->getEngine(), array(
@@ -120,7 +119,7 @@ class CategoryController extends ContainerAware
     public function deleteAction($id)
     {
         $category = $this->findCategoryById($id);
-        $parentId = $this->getParentId($category);
+        $parentId = !$category->isRoot() ? $category->getParent()->getId() : null;
         
         $this->container->get('ir_category.manager.category')->deleteCategory($category);
         
@@ -128,7 +127,7 @@ class CategoryController extends ContainerAware
         $dispatcher = $this->container->get('event_dispatcher');          
         $dispatcher->dispatch(IRCategoryEvents::CATEGORY_DELETE_COMPLETED, new CategoryEvent($category));
                 
-        return new RedirectResponse($this->container->get('router')->generate('ir_category_list', array('id' => $parentId)));  
+        return new RedirectResponse($this->container->get('router')->generate('ir_category_list', array('parentId' => $parentId)));  
     }      
     
     /**
@@ -137,7 +136,7 @@ class CategoryController extends ContainerAware
     public function moveAction(Request $request, $id)
     {   
         $category = $this->findCategoryById($id);
-        $parentId = $this->getParentId($category);
+        $parentId = !$category->isRoot() ? $category->getParent()->getId() : null;
         
         if ($request->request->has('position')) {
             $category->setPosition($request->request->get('position'));
@@ -151,9 +150,8 @@ class CategoryController extends ContainerAware
             return $response;
         }
                
-        return new RedirectResponse($this->container->get('router')->generate('ir_category_list', array('id' => $parentId))); 
+        return new RedirectResponse($this->container->get('router')->generate('ir_category_list', array('parentId' => $parentId))); 
     }
-
 
     /**
      * Finds a category by id.
@@ -174,18 +172,6 @@ class CategoryController extends ContainerAware
 
         return $category;
     }    
-    
-    /**
-     * Returns the parent id of a category.
-     *
-     * @param CategoryInterface $category
-     *
-     * @return mixed|null
-     */    
-    protected function getParentId(CategoryInterface $category)
-    {
-        return !$category->isRoot() ? $category->getParent()->getId() : null;
-    }
 
     /**
      * Returns the template engine.

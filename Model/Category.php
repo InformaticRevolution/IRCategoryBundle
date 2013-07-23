@@ -49,22 +49,22 @@ abstract class Category implements CategoryInterface
     /**
      * @var integer
      */
-    protected $root;    
+    protected $rootNode;    
     
     /**
      * @var integer
      */
-    protected $left;
+    protected $leftNode;
 
     /**
      * @var integer
      */
-    protected $right;    
+    protected $rightNode;    
     
     /**
      * @var integer
      */
-    protected $level;    
+    protected $levelDepth;    
     
     /**
      * @var Collection

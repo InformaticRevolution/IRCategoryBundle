@@ -9,6 +9,6 @@
     <div class="form-actions">
         <input type="submit" value="{{ 'category.new.save'|trans }}" class="btn btn-large btn-primary" />
         &nbsp;
-        <a href="{{ path('ir_category_list', {'id': parentId}) }}" class="btn btn-large">{{ 'category.new.cancel'|trans }}</a>         
+        <a href="{{ path('ir_category_list', {'parentId': parentId}) }}" class="btn btn-large">{{ 'category.new.cancel'|trans }}</a>         
     </div> 
 </form>
