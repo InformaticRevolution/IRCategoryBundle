@@ -19,7 +19,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @author Julien Kirsch <informatic.revolution@gmail.com>
  */
-abstract class Category implements CategoryInterface
+ class Category implements CategoryInterface
 {
     /**
      * @var mixed
@@ -69,7 +69,7 @@ abstract class Category implements CategoryInterface
     /**
      * @var Collection
      */
-    protected $children;      
+    protected $children;    
 
     /**
      * @var \Datetime
@@ -112,8 +112,6 @@ abstract class Category implements CategoryInterface
     public function setName($name)
     {
         $this->name = $name;
-        
-        return $this;
     }
     
     /**
@@ -130,18 +128,8 @@ abstract class Category implements CategoryInterface
     public function setSlug($slug)
     {
         $this->slug = $slug;
-        
-        return $this;
     }    
 
-    /**
-     * {@inheritdoc}
-     */
-    public function isRoot()
-    {
-        return !$this->getParent();
-    }    
-    
     /**
      * {@inheritdoc}
      */
@@ -156,8 +144,6 @@ abstract class Category implements CategoryInterface
     public function setParent(CategoryInterface $parent = null)
     {
         $this->parent = $parent;
-        
-        return $this;
     }
 
     /**
@@ -174,8 +160,6 @@ abstract class Category implements CategoryInterface
     public function setPosition($position)
     {
         $this->position = $position;
-        
-        return $this;
     }    
 
     /**
@@ -194,9 +178,7 @@ abstract class Category implements CategoryInterface
         if (!$this->hasChild($child)) {
             $child->setParent($this);
             $this->children->add($child);
-        }
-        
-        return $this;        
+        }   
     }
     
     /**
@@ -204,12 +186,9 @@ abstract class Category implements CategoryInterface
      */
     public function removeChild(CategoryInterface $child)
     {
-        if ($this->hasChild($child)) {
-            $this->children->removeElement($child);
+        if ($this->children->removeElement($child)) {
             $child->setParent(null);
         }        
-        
-        return $this;        
     }
     
     /**
@@ -231,11 +210,9 @@ abstract class Category implements CategoryInterface
     /**
      * {@inheritdoc}
      */   
-    public function setCreatedAt(\Datetime $datetime)
+    public function setCreatedAt(\Datetime $createdAt)
     {
-        $this->createdAt = $datetime;
-        
-        return $this;
+        $this->createdAt = $createdAt;        
     }    
     
     /**
@@ -249,15 +226,13 @@ abstract class Category implements CategoryInterface
     /**
      * {@inheritdoc}
      */   
-    public function setUpdatedAt(\Datetime $datetime = null)
+    public function setUpdatedAt(\Datetime $updatedAt = null)
     {
-        $this->updatedAt = $datetime;
-        
-        return $this;
+        $this->updatedAt = $updatedAt;        
     }     
     
     /**
-     * Returns the category string representation.
+     * Returns the category name.
      * 
      * @return string
      */    

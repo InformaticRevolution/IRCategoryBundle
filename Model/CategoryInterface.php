@@ -11,6 +11,8 @@
 
 namespace IR\Bundle\CategoryBundle\Model;
 
+use Doctrine\Common\Collections\Collection;
+
 /**
  * Category interface.
  * 
@@ -36,8 +38,6 @@ interface CategoryInterface
      * Sets the name.
      *
      * @param string $name
-     * 
-     * @return CategoryInterface
      */
     public function setName($name);
     
@@ -52,18 +52,9 @@ interface CategoryInterface
      * Sets the slug.
      *
      * @param string $slug
-     * 
-     * @return CategoryInterface
      */
     public function setSlug($slug);    
 
-    /**
-     * Checks whether category is root.
-     *
-     * @return Boolean
-     */
-    public function isRoot();    
-    
     /**
      * Returns the parent.
      *
@@ -75,8 +66,6 @@ interface CategoryInterface
      * Sets the parent.
      *
      * @param CategoryInterface|null $parent
-     * 
-     * @return CategoryInterface
      */
     public function setParent(CategoryInterface $parent = null);     
     
@@ -91,15 +80,13 @@ interface CategoryInterface
      * Sets the position.
      *
      * @param integer $position
-     * 
-     * @return CategoryInterface
      */
     public function setPosition($position);
 
     /**
-     * Returns all chidren.
+     * Returns all the chidren.
      *
-     * @return \Traversable
+     * @return Collection
      */
     public function getChildren(); 
     
@@ -107,8 +94,6 @@ interface CategoryInterface
      * Adds a child.
      *
      * @param CategoryInterface $child
-     * 
-     * @return CategoryInterface
      */
     public function addChild(CategoryInterface $child);
     
@@ -116,8 +101,6 @@ interface CategoryInterface
      * Removes a child.
      *
      * @param CategoryInterface $child
-     * 
-     * @return CategoryInterface
      */
     public function removeChild(CategoryInterface $child);    
     
@@ -140,11 +123,9 @@ interface CategoryInterface
     /**
      * Sets the creation time.
      * 
-     * @param \Datetime $datetime
-     * 
-     * @return CategoryInterface
+     * @param \Datetime $createdAt
      */
-    public function setCreatedAt(\Datetime $datetime);     
+    public function setCreatedAt(\Datetime $createdAt);     
     
     /**
      * Returns the last update time.
@@ -156,10 +137,8 @@ interface CategoryInterface
     /**
      * Sets the last update time.
      * 
-     * @param \Datetime|null $datetime
-     * 
-     * @return CategoryInterface
+     * @param \Datetime|null $updatedAt
      */
-    public function setUpdatedAt(\Datetime $datetime = null);      
+    public function setUpdatedAt(\Datetime $updatedAt = null);      
 }
 
