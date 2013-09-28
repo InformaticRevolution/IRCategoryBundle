@@ -15,11 +15,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Abstract category implementation.
+ * Category.
  *
  * @author Julien Kirsch <informatic.revolution@gmail.com>
  */
- class Category implements CategoryInterface
+class Category implements CategoryInterface
 {
     /**
      * @var mixed
