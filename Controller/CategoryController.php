@@ -90,7 +90,7 @@ class CategoryController extends ContainerAware
     public function editAction(Request $request, $id)
     {
         $category = $this->findCategoryById($id);
-        $parentId = $category->getParent() ?: $category->getParent()->getId();
+        $parentId = $category->getParent() ? $category->getParent()->getId() : null;
         
         $form = $this->container->get('ir_category.form.category');      
         $form->setData($category);
@@ -119,7 +119,7 @@ class CategoryController extends ContainerAware
     public function deleteAction($id)
     {
         $category = $this->findCategoryById($id);
-        $parentId = $category->getParent() ?: $category->getParent()->getId();
+        $parentId = $category->getParent() ? $category->getParent()->getId() : null;
         
         $this->container->get('ir_category.manager.category')->deleteCategory($category);
         
@@ -136,7 +136,7 @@ class CategoryController extends ContainerAware
     public function moveAction(Request $request, $id)
     {   
         $category = $this->findCategoryById($id);
-        $parentId = $category->getParent() ?: $category->getParent()->getId();
+        $parentId = $category->getParent() ? $category->getParent()->getId() : null;
         
         if ($request->request->has('position')) {
             $category->setPosition($request->request->get('position'));
