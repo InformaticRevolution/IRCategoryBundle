@@ -149,7 +149,7 @@ class CategoryTest extends \PHPUnit_Framework_TestCase
      */
     protected function getCategory()
     {
-        return $this->getMockForAbstractClass('IR\Bundle\CategoryBundle\Model\Category');
+        return new Category();
     }
     
     /**
