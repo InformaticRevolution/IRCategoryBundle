@@ -74,20 +74,7 @@ interface CategoryManagerInterface
      * @return array
      */
     public function getPath(CategoryInterface $category);
-    
-    /**
-     * Returns list of categories followed by given $category
-     *
-     * @param CategoryInterface $category
-     * @param Boolean $direct
-     * @param array|string $sortByField
-     * @param string $direction
-     * @param Boolean $includeRootCategory
-     * 
-     * @return array
-     */
-    public function getChildrenCategories(CategoryInterface $category = null, $direct = false, $sortByField = null, $direction = 'ASC', $includeRootCategory = false);
-    
+
     /**
      * Returns the categories's fully qualified class name.
      *

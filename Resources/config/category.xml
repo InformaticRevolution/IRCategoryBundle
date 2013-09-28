@@ -6,7 +6,6 @@
 
     <parameters>
         <parameter key="ir_category.form.type.category.class">IR\Bundle\CategoryBundle\Form\Type\CategoryType</parameter>
-        <parameter key="ir_category.form.type.category_choice.class">IR\Bundle\CategoryBundle\Form\Type\CategoryChoiceType</parameter>
     </parameters>
 
     <services>
@@ -18,14 +17,7 @@
         <service id="ir_category.form.type.category" class="%ir_category.form.type.category.class%">
             <argument>%ir_category.model.category.class%</argument>
             <tag name="form.type" alias="ir_category" />
-        </service>  
-        
-        <!-- Category Choice Type -->
-        
-        <service id="ir_category.form.type.category_choice" class="%ir_category.form.type.category_choice.class%">
-            <argument type="service" id="ir_category.manager.category" />
-            <tag name="form.type" alias="ir_category_choice" />
-        </service>        
+        </service>      
     </services>
 
 </container>
