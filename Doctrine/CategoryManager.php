@@ -12,6 +12,8 @@
 namespace IR\Bundle\CategoryBundle\Doctrine;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Persistence\ObjectRepository;
+
 use IR\Bundle\CategoryBundle\Model\CategoryInterface;
 use IR\Bundle\CategoryBundle\Manager\CategoryManager as AbstractCategoryManager;
 
@@ -28,7 +30,7 @@ class CategoryManager extends AbstractCategoryManager
     protected $objectManager;
     
     /**
-     * @var EntityRepository
+     * @var ObjectRepository
      */           
     protected $repository;    
 

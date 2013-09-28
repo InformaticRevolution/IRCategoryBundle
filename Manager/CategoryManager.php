@@ -14,7 +14,7 @@ namespace IR\Bundle\CategoryBundle\Manager;
 use IR\Bundle\CategoryBundle\Model\CategoryInterface;
 
 /**
- * Abstract category manager implementation.
+ * Abstract category manager.
  *
  * @author Julien Kirsch <informatic.revolution@gmail.com>
  */

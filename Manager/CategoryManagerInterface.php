@@ -67,7 +67,7 @@ interface CategoryManagerInterface
     public function getRootCategories($sortByField = null, $direction = 'asc'); 
     
     /**
-     * Returns the tree path of categories by given $category.
+     * Returns the tree path of categories by given category.
      *
      * @param CategoryInterface $category
      * 
