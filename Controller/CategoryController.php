@@ -90,7 +90,7 @@ class CategoryController extends ContainerAware
     public function editAction(Request $request, $id)
     {
         $category = $this->findCategoryById($id);
-        $parentId = !$category->isRoot() ? $category->getParent()->getId() : null;
+        $parentId = $category->getParent() ?: $category->getParent()->getId();
         
         $form = $this->container->get('ir_category.form.category');      
         $form->setData($category);
