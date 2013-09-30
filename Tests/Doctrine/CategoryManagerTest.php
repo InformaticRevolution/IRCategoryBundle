@@ -42,12 +42,12 @@ class CategoryManagerTest extends \PHPUnit_Framework_TestCase
     {
         if (!interface_exists('Doctrine\Common\Persistence\ObjectManager')) {
             $this->markTestSkipped('Doctrine Common has to be installed for this test to run.');
-        }        
-        
+        }  
+                
         $class = $this->getMock('Doctrine\Common\Persistence\Mapping\ClassMetadata');
         $this->objectManager = $this->getMock('Doctrine\Common\Persistence\ObjectManager');
         $this->repository = $this->getMock('Doctrine\Common\Persistence\ObjectRepository');
-        
+                
         $this->objectManager->expects($this->any())
             ->method('getRepository')
             ->with($this->equalTo(static::CATEGORY_CLASS))
@@ -64,7 +64,7 @@ class CategoryManagerTest extends \PHPUnit_Framework_TestCase
         
         $this->categoryManager = new CategoryManager($this->objectManager, static::CATEGORY_CLASS);
     }    
-    
+
     public function testUpdateCategory()
     {
         $category = $this->getCategoryMock();
@@ -103,21 +103,12 @@ class CategoryManagerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(array()));
 
         $this->categoryManager->findCategoryBy($criteria);
-    }     
-    
-    public function testGetRootCategories()
-    {
-        $this->repository->expects($this->once())
-            ->method('getRootNodes')
-            ->will($this->returnValue(array()));
-        
-        $this->categoryManager->getRootCategories();
     }
-    
+
     public function testGetClass()
     {
         $this->assertEquals(static::CATEGORY_CLASS, $this->categoryManager->getClass());
-    }    
+    }
     
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject
