@@ -3,6 +3,7 @@ IRCategoryBundle
 
 This bundle adds support for a multi-level category system.
 
+[![Build Status](https://secure.travis-ci.org/InformaticRevolution/IRCategoryBundle.png?branch=master)](http://travis-ci.org/InformaticRevolution/IRCategoryBundle) [![Total Downloads](https://poser.pugx.org/informaticrevolution/category-bundle/downloads.png)](https://packagist.org/packages/informaticrevolution/category-bundle) [![Latest Stable Version](https://poser.pugx.org/informaticrevolution/category-bundle/v/stable.png)](https://packagist.org/packages/informaticrevolution/category-bundle)
 
 Documentation
 -------------
