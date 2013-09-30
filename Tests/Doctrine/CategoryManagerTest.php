@@ -105,6 +105,15 @@ class CategoryManagerTest extends \PHPUnit_Framework_TestCase
         $this->categoryManager->findCategoryBy($criteria);
     }     
     
+    public function testGetRootCategories()
+    {
+        $this->repository->expects($this->once())
+            ->method('getRootNodes')
+            ->will($this->returnValue(array()));
+        
+        $this->categoryManager->getRootCategories();
+    }
+    
     public function testGetClass()
     {
         $this->assertEquals(static::CATEGORY_CLASS, $this->categoryManager->getClass());
