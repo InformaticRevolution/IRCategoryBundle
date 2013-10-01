@@ -129,29 +129,6 @@ class CategoryController extends ContainerAware
                 
         return new RedirectResponse($this->container->get('router')->generate('ir_category_list', array('parentId' => $parentId)));  
     }      
-    
-    /**
-     * Move a category.
-     */    
-    public function moveAction(Request $request, $id)
-    {   
-        $category = $this->findCategoryById($id);
-        $parentId = $category->getParent() ? $category->getParent()->getId() : null;
-        
-        if ($request->request->has('position')) {
-            $category->setPosition($request->request->get('position'));
-            $this->container->get('ir_category.manager.category')->updateCategory($category);
-        }
-        
-        if ($request->isXmlHttpRequest()) {
-            $response = new Response(json_encode(array('success' => true)));
-            $response->headers->set('Content-Type', 'application/json');
-            
-            return $response;
-        }
-               
-        return new RedirectResponse($this->container->get('router')->generate('ir_category_list', array('parentId' => $parentId))); 
-    }
 
     /**
      * Finds a category by id.
