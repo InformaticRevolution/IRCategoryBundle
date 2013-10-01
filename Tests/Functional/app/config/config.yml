@@ -1,0 +1,44 @@
+framework:
+    secret: test
+    test: ~
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }    
+    templating:
+        engines: ['twig', 'php']   
+    session:
+        storage_id: session.storage.mock_file
+     
+# Twig Configuration        
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%        
+        
+# Doctrine Configuration        
+doctrine:
+    dbal:
+        driver: pdo_sqlite
+        path: %kernel.cache_dir%/database.db
+        
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: true 
+        
+        resolve_target_entities:
+            IR\Bundle\CategoryBundle\Model\CategoryInterface: IR\Bundle\CategoryBundle\Tests\Functional\Bundle\TestBundle\Entity\Category   
+   
+# StofDoctrineExtensions Configuration            
+stof_doctrine_extensions:
+    orm:
+        default:
+            tree: true
+            sortable: true
+            sluggable: true
+            timestampable: true
+           
+# IRCategory Configuration            
+ir_category:
+    db_driver: orm 
+    category_class: IR\Bundle\CategoryBundle\Tests\Functional\Bundle\TestBundle\Entity\Category            

@@ -1,0 +1,3 @@
+ir_category:
+    resource: "@IRCategoryBundle/Resources/config/routing.xml" 
+    prefix: /admin/categories
