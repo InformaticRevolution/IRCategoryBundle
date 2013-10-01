@@ -20,11 +20,13 @@
         "symfony/twig-bundle": "*",
         "symfony/finder": "*",
         "symfony/browser-kit": "*",
+        "symfony/css-selector": "*",
         "symfony/form": "*",
         "symfony/validator": "*",
         "symfony/yaml": "*",
         "doctrine/doctrine-bundle": "*@dev",
-	"doctrine/orm": "*"
+	"doctrine/orm": "*",
+        "nelmio/alice": "*"
     },
     "config": {
         "bin-dir": "bin"

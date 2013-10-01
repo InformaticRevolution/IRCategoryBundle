@@ -19,6 +19,13 @@ twig:
 # Doctrine Configuration        
 doctrine:
     dbal:
+        #driver:   pdo_mysql
+        #host:     127.0.0.1
+        #port:     null
+        #dbname:   ecommerce
+        #user:     ecommerce
+        #password: ecommerce
+        #charset:  UTF8      
         driver: pdo_sqlite
         path: %kernel.cache_dir%/database.db
         
