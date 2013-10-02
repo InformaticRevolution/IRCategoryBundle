@@ -22,14 +22,11 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
  */
 class WebTestCase extends BaseWebTestCase
 {
-    protected function setUp()
-    {
-        $fs = new Filesystem();
-        $fs->remove(sys_get_temp_dir().'/IRCategoryBundle/');
-    }    
-    
+    /**
+     * Creates a fresh database.
+     */
     protected final function importDatabaseSchema()
-    {
+    {        
         $em = self::$kernel->getContainer()->get('doctrine.orm.entity_manager');
         $metadata = $em->getMetadataFactory()->getAllMetadata();
         
@@ -39,4 +36,10 @@ class WebTestCase extends BaseWebTestCase
             $schemaTool->createSchema($metadata);
         }        
     }    
+        
+    protected function tearDown()
+    {
+        $fs = new Filesystem();
+        $fs->remove(sys_get_temp_dir().'/IRCategoryBundle/');
+    }     
 }

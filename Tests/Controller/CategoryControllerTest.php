@@ -12,6 +12,7 @@
 namespace IR\Bundle\CategoryBundle\Tests\Controller;
 
 use Nelmio\Alice\Fixtures;
+use Symfony\Component\BrowserKit\Client;
 use IR\Bundle\CategoryBundle\Tests\Functional\WebTestCase;
 
 /**
@@ -21,133 +22,166 @@ use IR\Bundle\CategoryBundle\Tests\Functional\WebTestCase;
  */
 class CategoryControllerTest extends WebTestCase
 {   
-    public function testList()
-    {
-        $client = self::createClient();
-        $this->importDatabaseSchema();
-        $em = self::$kernel->getContainer()->get('doctrine.orm.entity_manager');
-        Fixtures::load($this->getFixtures(), $em);
-        
-        $crawler = $client->request('GET', '/admin/categories/list');
+    /**
+     * @var Client 
+     */
+    private $client;
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertEquals(3, $crawler->filter('table tbody tr')->count());
-    }    
-    
-    public function testListActionWithParentCategory()
+
+    protected function setUp()
     {
-        $client = self::createClient();
+        $this->client = self::createClient();
         $this->importDatabaseSchema();
-        $em = self::$kernel->getContainer()->get('doctrine.orm.entity_manager');
-        Fixtures::load($this->getFixtures(), $em);
-        
-        $crawler = $client->request('GET', '/admin/categories/list/1');  
-        
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        //$this->assertEquals(2, $crawler->filter('table tbody tr')->count());
-        
-        $this->assertRegExp('~Category 4~', $crawler->filter('table tbody tr td')->text());
+        $this->loadFixtures();
     }
-          
-    public function testNew()
+            
+    public function testListAction()
     {
-        $client = self::createClient();
-        $this->importDatabaseSchema();
+        $crawler = $this->client->request('GET', '/categories/list');
+
+        $this->assertResponseStatusCode(200);
+        $this->assertCount(3, $crawler->filter('table tbody tr'));
+    }    
         
-        $crawler = $client->request('GET', '/admin/categories/new');
+    public function testNewActionGetMethod()
+    {
+        $crawler = $this->client->request('GET', '/categories/new');
         
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertResponseStatusCode(200);
         $this->assertCount(1, $crawler->filter('form'));
     }
     
-    public function testNew2()
-    {
-        $client = self::createClient();
-        $this->importDatabaseSchema();
-        $csrfToken = $client->getContainer()->get('form.csrf_provider')->generateCsrfToken('category');
+    public function testNewActionPostMethod()
+    {        
+        $this->client->request('POST', '/categories/new', array(
+            'ir_category_form' => array (
+                'name' => 'Category 1',
+                '_token' => $this->generateCsrfToken(),
+            ) 
+        ));  
         
-        $client->request('POST', '/admin/categories/new', array(
-           'ir_category_form' => array (
-               'name' => 'Category 1',
-               '_token' => $csrfToken,
-           ) 
-        ));
+        $this->assertResponseStatusCode(302);
         
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $crawler = $this->client->followRedirect();
         
-        $crawler = $client->followRedirect();
-        
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertEquals(1, $crawler->filter('table tbody tr')->count());
-        $this->assertRegExp('~Category 1~', $crawler->filter('table tbody tr td')->text());
+        $this->assertResponseStatusCode(200);
+        $this->assertCurrentUri('/categories/list');
+        $this->assertCount(4, $crawler->filter('table tbody tr'));
+        $this->assertRegExp('~Category 1~', $crawler->filter('table tbody')->text());        
     }
     
-    public function testEdit()
+    public function testNewActionGetMethodWithParentCategory()
     {
-        $client = self::createClient();
-        $this->importDatabaseSchema(); 
-        $em = self::$kernel->getContainer()->get('doctrine.orm.entity_manager');
-        Fixtures::load($this->getFixtures(), $em);
-                
-        $crawler = $client->request('GET', '/admin/categories/1/edit');
+        $this->client->request('GET', '/categories/new/1');
         
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertResponseStatusCode(200);
+    }   
+    
+    public function testNewActionPostMethodWithParentCategory()
+    {        
+        $this->client->request('POST', '/categories/new/1', array(
+            'ir_category_form' => array (
+                'name' => 'Category 1',
+                '_token' => $this->generateCsrfToken(),
+            ) 
+        ));  
+        
+        $this->assertResponseStatusCode(302);
+        
+        $crawler = $this->client->followRedirect();
+        
+        $this->assertResponseStatusCode(200);
+        $this->assertCurrentUri('/categories/list/1');
+        $this->assertCount(1, $crawler->filter('table tbody tr'));
+        $this->assertRegExp('~Category 1~', $crawler->filter('table tbody')->text());        
+    }    
+    
+    public function testEditActionGetMethod()
+    {   
+        $crawler = $this->client->request('GET', '/categories/1/edit');
+        
+        $this->assertResponseStatusCode(200);
         $this->assertCount(1, $crawler->filter('form'));        
     }
     
-    public function testEdit2()
-    {
-        $client = self::createClient();
-        $this->importDatabaseSchema(); 
-        $em = self::$kernel->getContainer()->get('doctrine.orm.entity_manager');
-        Fixtures::load($this->getFixtures(), $em);
-        
-        $csrfToken = $client->getContainer()->get('form.csrf_provider')->generateCsrfToken('category');
-        
-        $client->request('POST', '/admin/categories/1/edit', array(
-           'ir_category_form' => array (
-               'name' => 'Category 1',
-               '_token' => $csrfToken,
-           ) 
+    public function testEditActionPostMethod()
+    {        
+        $this->client->request('POST', '/categories/1/edit', array(
+            'ir_category_form' => array (
+                'name' => 'Category 1',
+                '_token' => $this->generateCsrfToken(),
+            ) 
         ));     
         
-          $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $this->assertResponseStatusCode(302);
         
-        $crawler = $client->followRedirect();
+        $crawler = $this->client->followRedirect();
         
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertEquals(3, $crawler->filter('table tbody tr')->count());
-        $this->assertRegExp('~Category 1~', $crawler->filter('table tbody tr td')->text());      
+        $this->assertResponseStatusCode(200);
+        $this->assertCurrentUri('/categories/list');
+        $this->assertCount(3, $crawler->filter('table tbody tr'));
+        $this->assertRegExp('~Category 1~', $crawler->filter('table tbody')->text());      
     }
     
-    public function testDelete()
+    public function testDeleteAction()
     {
-         $client = self::createClient();
-        $this->importDatabaseSchema(); 
-        $em = self::$kernel->getContainer()->get('doctrine.orm.entity_manager');
-        Fixtures::load($this->getFixtures(), $em); 
+        $this->client->request('GET', '/categories/1/delete');
         
-        $crawler = $client->request('GET', '/admin/categories/1/delete');
+        $this->assertResponseStatusCode(302);
         
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $crawler = $this->client->followRedirect();
         
-        $crawler = $client->followRedirect();
+        $this->assertCurrentUri('/categories/list');
+        $this->assertCount(2, $crawler->filter('table tbody tr'));
+    }     
         
-        $this->assertEquals(2, $crawler->filter('table tbody tr')->count());
+    /**
+     * @param integer $statusCode
+     */
+    protected function assertResponseStatusCode($statusCode)
+    {
+        $this->assertEquals($statusCode, $this->client->getResponse()->getStatusCode());
+    }    
+    
+    /**
+     * @param string $uri
+     */
+    protected function assertCurrentUri($uri)
+    {
+        $this->assertStringEndsWith($uri, $this->client->getHistory()->current()->getUri());
     }
-            
-    private function getFixtures()
+    
+     /**
+     * Generates a CSRF token.
+     * 
+     * @return string
+     */
+    protected function generateCsrfToken()
+    {
+        return $this->client->getContainer()->get('form.csrf_provider')->generateCsrfToken('category');
+    }
+
+    /*
+     * Loads the test fixtures into the database.
+     */
+    protected function loadFixtures()
+    {
+        Fixtures::load($this->getFixtures(), self::$kernel->getContainer()->get('doctrine.orm.entity_manager'));       
+    }
+
+    /**
+     * Returns test fixtures.
+     * 
+     * @return array
+     */
+    protected function getFixtures()
     {
         return array(
             'IR\Bundle\CategoryBundle\Tests\Functional\Bundle\TestBundle\Entity\Category' => array(
                 'category{1..3}' => array(
                     'name' => '<sentence(2)>',
-                ),
-                'category{4..6}' => array(
-                    'name' => '<sentence(2)>',
-                    'parent' => '@category1',
                 )
             )
         );
-    }
+    }   
 }
