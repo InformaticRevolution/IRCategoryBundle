@@ -37,6 +37,11 @@ class Category implements CategoryInterface
     protected $slug;    
 
     /**
+     * @var string
+     */
+    protected $permalink;
+    
+    /**
      * @var CategoryInterface
      */
     protected $parent;     
@@ -130,6 +135,22 @@ class Category implements CategoryInterface
         $this->slug = $slug;
     }    
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getPermalink()
+    {
+        return $this->permalink;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function setPermalink($permalink)
+    {
+        $this->permalink = $permalink;
+    }
+    
     /**
      * {@inheritdoc}
      */

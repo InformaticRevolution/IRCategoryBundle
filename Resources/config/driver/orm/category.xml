@@ -14,7 +14,7 @@
         <service id="ir_category.manager.category.default" class="%ir_category.manager.category.class%" public="false">
             <argument type="service" id="ir_category.entity_manager" />
             <argument>%ir_category.model.category.class%</argument>
-        </service>          
+        </service>                    
     </services>  
 
 </container>

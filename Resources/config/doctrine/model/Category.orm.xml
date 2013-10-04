@@ -12,6 +12,14 @@
         <field name="slug" column="slug" type="string" length="255" unique="true">
             <gedmo:slug fields="name" unique="true" />
         </field>
+        
+        <field name="permalink" column="permalink" type="string" unique="true">
+            <gedmo:slug fields="name" unique="true">
+                <gedmo:handler class="Gedmo\Sluggable\Handler\TreeSlugHandler">
+                    <gedmo:handler-option name="parentRelationField" value="parent" />
+                </gedmo:handler>
+            </gedmo:slug>
+        </field>
 
         <field name="position" column="position" type="integer">
             <gedmo:sortable-position />

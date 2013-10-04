@@ -56,6 +56,20 @@ interface CategoryInterface
     public function setSlug($slug);    
 
     /**
+     * Returns the permalink.
+     * 
+     * @return string
+     */
+    public function getPermalink();
+    
+    /**
+     * Sets the permalink.
+     * 
+     * @param string $permalink
+     */
+    public function setPermalink($permalink);
+    
+    /**
      * Returns the parent.
      *
      * @return CategoryInterface|null

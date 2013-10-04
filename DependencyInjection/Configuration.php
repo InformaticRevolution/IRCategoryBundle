@@ -77,7 +77,7 @@ class Configuration implements ConfigurationInterface
             ->end()
         ;
     }
-    
+
     private function addTemplateSection(ArrayNodeDefinition $node)
     {
         $node
