@@ -5,7 +5,6 @@
     <ul class="breadcrumb">    
         <li>
             <a href="{{ path('ir_category_list') }}">{{ 'category.list.title'|trans }}</a> 
-            <span class="divider">&#62;</span>
         </li>
     {% for category in path %}
         {% if not loop.last %}
@@ -13,7 +12,6 @@
             <a href="{{ path('ir_category_list', {'parentId': category.id}) }}">
                 {{ category }}
             </a> 
-            <span class="divider">&#62;</span>
         </li>
         {% else %}
         <li class="active">{{ category }}</li>
