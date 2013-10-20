@@ -14,7 +14,7 @@ namespace IR\Bundle\CategoryBundle\Manager;
 use IR\Bundle\CategoryBundle\Model\CategoryInterface;
 
 /**
- * Category manager interface.
+ * Category Manager Interface.
  *
  * @author Julien Kirsch <informatic.revolution@gmail.com>
  */
@@ -33,8 +33,6 @@ interface CategoryManagerInterface
      * Updates a category.
      *
      * @param CategoryInterface $category
-     * 
-     * @return void
      */
     public function updateCategory(CategoryInterface $category);    
          
@@ -42,8 +40,6 @@ interface CategoryManagerInterface
      * Deletes a category.
      *
      * @param CategoryInterface $category
-     * 
-     * @return void
      */
     public function deleteCategory(CategoryInterface $category);    
 
@@ -76,7 +72,7 @@ interface CategoryManagerInterface
     public function getPath(CategoryInterface $category);
 
     /**
-     * Returns the categories's fully qualified class name.
+     * Returns the category's fully qualified class name.
      *
      * @return string
      */
