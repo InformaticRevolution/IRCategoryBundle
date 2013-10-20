@@ -4,11 +4,10 @@
     <h1>{{ 'category.edit.title'|trans }}</h1>
 </div>
 
-<form action="{{ path('ir_category_edit', {'id': category.id}) }}" {{ form_enctype(form) }} method="POST">
+<form action="{{ path('ir_category_edit', {'id': category.id}) }}" {{ form_enctype(form) }} method="POST" novalidate>
     {% include 'IRCategoryBundle:Category:form.html.twig' %}
-    <div class="form-actions">
-        <input type="submit" value="{{ 'category.edit.save'|trans }}" class="btn btn-large btn-primary" />
-        &nbsp;
-        <a href="{{ path('ir_category_list', {'parentId': parentId}) }}" class="btn btn-large">{{ 'category.edit.cancel'|trans }}</a>         
-    </div> 
+    <div>
+        <button type="submit" class="btn btn-primary">{{ 'category.edit.save'|trans }}</button>
+        <a href="{{ app.request.headers.get('referer') }}" class="btn">{{ 'category.edit.cancel'|trans }}</a>         
+    </div>        
 </form>

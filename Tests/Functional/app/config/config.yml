@@ -1,3 +1,4 @@
+# Framework Configuration
 framework:
     secret: test
     test: ~
@@ -25,7 +26,6 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true 
-        
         resolve_target_entities:
             IR\Bundle\CategoryBundle\Model\CategoryInterface: IR\Bundle\CategoryBundle\Tests\Functional\Bundle\TestBundle\Entity\Category   
    

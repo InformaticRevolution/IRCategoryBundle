@@ -18,7 +18,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 use IR\Bundle\CategoryBundle\IRCategoryEvents;
 
 /**
- * Flash listener.
+ * Flash Listener.
  *
  * @author Julien Kirsch <informatic.revolution@gmail.com>
  */
@@ -69,16 +69,14 @@ class FlashListener implements EventSubscriberInterface
      * Adds a success flash message.
      * 
      * @param Event $event
-     * 
-     * @return void
      */            
     public function addSuccessFlash(Event $event)
     {
-        if (!isset(self::$successMessages[$event->getName()])) {
+        if (!isset(static::$successMessages[$event->getName()])) {
             throw new \InvalidArgumentException('This event does not correspond to a known flash message');
         }
 
-        $this->session->getFlashBag()->add('success', $this->trans(self::$successMessages[$event->getName()]));
+        $this->session->getFlashBag()->add('success', $this->trans(static::$successMessages[$event->getName()]));
     }
 
     /**

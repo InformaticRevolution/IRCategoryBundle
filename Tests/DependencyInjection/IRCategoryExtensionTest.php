@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use IR\Bundle\CategoryBundle\DependencyInjection\IRCategoryExtension;
 
 /**
- * Category extension test.
+ * Category Extension Test.
  *
  * @author Julien Kirsch <informatic.revolution@gmail.com>
  */
@@ -61,7 +61,7 @@ class IRCategoryExtensionTest extends \PHPUnit_Framework_TestCase
         $loader->load(array($config), new ContainerBuilder());
     }    
     
-    public function testDisableResetting()
+    public function testDisableCategory()
     {
         $this->configuration = new ContainerBuilder();
         $loader = $this->getIRCategoryExtension();
@@ -174,27 +174,15 @@ class IRCategoryExtensionTest extends \PHPUnit_Framework_TestCase
         $loader->load(array($config), $this->configuration);
         $this->assertTrue($this->configuration instanceof ContainerBuilder);
     }    
-    
-    /**
-     * @return IRCategoryExtension
-     */
-    public function getIRCategoryExtension()
-    {
-        return new IRCategoryExtension();
-    }
-    
+        
     /**
      * @return array
      */
     protected function getEmptyConfig()
     {
-        $yaml = <<<EOF
-db_driver: orm
-category_class: Acme\CategoryBundle\Entity\Category
-EOF;
         $parser = new Parser();
 
-        return $parser->parse($yaml);
+        return $parser->parse(file_get_contents(__DIR__.'/Fixtures/minimal_config.yml'));
     } 
     
     /**
@@ -202,21 +190,18 @@ EOF;
      */    
     protected function getFullConfig()
     {
-        $yaml = <<<EOF
-db_driver: orm
-category_class: Acme\CategoryBundle\Entity\Category
-category_manager: acme_category.manager.category
-category:
-    form:
-        type: acme_category
-        name: acme_category_form
-template:
-    engine: php
-EOF;
         $parser = new Parser();
 
-        return $parser->parse($yaml);
+        return $parser->parse(file_get_contents(__DIR__.'/Fixtures/full_config.yml'));
     }   
+    
+    /**
+     * @return IRCategoryExtension
+     */
+    public function getIRCategoryExtension()
+    {
+        return new IRCategoryExtension();
+    }    
     
     /**
      * @param string $value

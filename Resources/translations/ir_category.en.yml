@@ -1,13 +1,10 @@
 # Category
 category: 
+    name: Name
+  
     list:
         title: Categories
-        column:
-            name: Name
-            actions: Actions
-        button: 
-            new: Add category
-        no_categories: You haven't added any category yet.  
+        no_results: You haven't added any category yet.  
     new:
         title: Add category
         save: Save
@@ -15,7 +12,9 @@ category:
     edit:
         title: Edit category   
         save: Save
-        cancel: Cancel         
+        cancel: Cancel
+    action:
+        new: Add a category        
     flash:
         created: The category has been successfully created
         updated: The category has been successfully updated
@@ -24,4 +23,4 @@ category:
 # Form field labels
 form:
     category:
-        name : "Name :"
+        name : "Name:"

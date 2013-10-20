@@ -14,13 +14,13 @@ namespace IR\Bundle\CategoryBundle\Tests\Doctrine;
 use IR\Bundle\CategoryBundle\Doctrine\CategoryManager;
 
 /**
- * Category manager test.
+ * Category Manager Test.
  *
  * @author Julien Kirsch <informatic.revolution@gmail.com>
  */
 class CategoryManagerTest extends \PHPUnit_Framework_TestCase
 {
-    const CATEGORY_CLASS = 'IR\Bundle\CategoryBundle\Model\Category';
+    const CATEGORY_CLASS = 'IR\Bundle\CategoryBundle\Tests\TestCategory';
     
     /**
      * @var CategoryManager

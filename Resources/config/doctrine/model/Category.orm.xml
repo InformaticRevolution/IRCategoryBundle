@@ -55,8 +55,7 @@
             <gedmo:sortable-group />
         </many-to-one>                  
                 
-        <gedmo:tree type="nested" />    
-        
+        <gedmo:tree type="nested" /> 
     </mapped-superclass>
     
 </doctrine-mapping>

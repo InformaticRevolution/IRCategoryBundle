@@ -1,0 +1,9 @@
+db_driver: orm
+category_class: Acme\CategoryBundle\Entity\Category
+category_manager: acme_category.manager.category
+category:
+    form:
+        type: acme_category
+        name: acme_category_form
+template:
+    engine: php

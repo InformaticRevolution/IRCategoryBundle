@@ -12,13 +12,13 @@
 namespace IR\Bundle\CategoryBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use IR\Bundle\CategoryBundle\IRCategoryEvents;
 use IR\Bundle\CategoryBundle\Event\CategoryEvent;
+use IR\Bundle\CategoryBundle\Model\CategoryInterface;
 
 /**
  * Controller managing the categories.

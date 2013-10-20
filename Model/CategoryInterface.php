@@ -14,7 +14,7 @@ namespace IR\Bundle\CategoryBundle\Model;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * Category interface.
+ * Category Interface.
  * 
  * @author Julien Kirsch <informatic.revolution@gmail.com>
  */

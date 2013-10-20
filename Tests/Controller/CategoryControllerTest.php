@@ -11,17 +11,18 @@
 
 namespace IR\Bundle\CategoryBundle\Tests\Controller;
 
-use Nelmio\Alice\Fixtures;
 use Symfony\Component\BrowserKit\Client;
 use IR\Bundle\CategoryBundle\Tests\Functional\WebTestCase;
 
 /**
- * Category controller test.
+ * Category Controller Test.
  *
  * @author Julien Kirsch <informatic.revolution@gmail.com>
  */
 class CategoryControllerTest extends WebTestCase
 {   
+    const FORM_INTENTION = 'category';
+    
     /**
      * @var Client 
      */
@@ -30,14 +31,14 @@ class CategoryControllerTest extends WebTestCase
 
     protected function setUp()
     {
-        $this->client = self::createClient();
+        $this->client = static::createClient();
         $this->importDatabaseSchema();
         $this->loadFixtures();
     }
             
     public function testListAction()
     {
-        $crawler = $this->client->request('GET', '/categories/list');
+        $crawler = $this->client->request('GET', '/categories');
 
         $this->assertResponseStatusCode(200);
         $this->assertCount(3, $crawler->filter('table tbody tr'));
@@ -56,7 +57,7 @@ class CategoryControllerTest extends WebTestCase
         $this->client->request('POST', '/categories/new', array(
             'ir_category_form' => array (
                 'name' => 'Category 1',
-                '_token' => $this->generateCsrfToken(),
+                '_token' => $this->generateCsrfToken(static::FORM_INTENTION),
             ) 
         ));  
         
@@ -65,7 +66,7 @@ class CategoryControllerTest extends WebTestCase
         $crawler = $this->client->followRedirect();
         
         $this->assertResponseStatusCode(200);
-        $this->assertCurrentUri('/categories/list');
+        $this->assertCurrentUri('/categories');
         $this->assertCount(4, $crawler->filter('table tbody tr'));
         $this->assertRegExp('~Category 1~', $crawler->filter('table tbody')->text());        
     }
@@ -82,7 +83,7 @@ class CategoryControllerTest extends WebTestCase
         $this->client->request('POST', '/categories/new/1', array(
             'ir_category_form' => array (
                 'name' => 'Category 1',
-                '_token' => $this->generateCsrfToken(),
+                '_token' => $this->generateCsrfToken(static::FORM_INTENTION),
             ) 
         ));  
         
@@ -91,7 +92,7 @@ class CategoryControllerTest extends WebTestCase
         $crawler = $this->client->followRedirect();
         
         $this->assertResponseStatusCode(200);
-        $this->assertCurrentUri('/categories/list/1');
+        $this->assertCurrentUri('/categories/1');
         $this->assertCount(1, $crawler->filter('table tbody tr'));
         $this->assertRegExp('~Category 1~', $crawler->filter('table tbody')->text());        
     }    
@@ -109,7 +110,7 @@ class CategoryControllerTest extends WebTestCase
         $this->client->request('POST', '/categories/1/edit', array(
             'ir_category_form' => array (
                 'name' => 'Category 1',
-                '_token' => $this->generateCsrfToken(),
+                '_token' => $this->generateCsrfToken(static::FORM_INTENTION),
             ) 
         ));     
         
@@ -118,7 +119,7 @@ class CategoryControllerTest extends WebTestCase
         $crawler = $this->client->followRedirect();
         
         $this->assertResponseStatusCode(200);
-        $this->assertCurrentUri('/categories/list');
+        $this->assertCurrentUri('/categories');
         $this->assertCount(3, $crawler->filter('table tbody tr'));
         $this->assertRegExp('~Category 1~', $crawler->filter('table tbody')->text());      
     }
@@ -131,10 +132,37 @@ class CategoryControllerTest extends WebTestCase
         
         $crawler = $this->client->followRedirect();
         
-        $this->assertCurrentUri('/categories/list');
+        $this->assertCurrentUri('/categories');
         $this->assertCount(2, $crawler->filter('table tbody tr'));
     }     
+    
+    public function testNotFoundHttpWhenCategoryNotExist()
+    {
+        $this->client->request('GET', '/category/4');
+        $this->assertResponseStatusCode(404); 
         
+        $this->client->request('GET', '/category/new/4');
+        $this->assertResponseStatusCode(404);        
+        
+        $this->client->request('GET', '/category/4/edit');
+        $this->assertResponseStatusCode(404);
+        
+        $this->client->request('GET', '/category/4/delete');
+        $this->assertResponseStatusCode(404);        
+    }    
+    
+    /**
+     * Generates a CSRF token.
+     * 
+     * @param string $intention
+     * 
+     * @return string
+     */
+    protected function generateCsrfToken($intention)
+    {
+        return $this->client->getContainer()->get('form.csrf_provider')->generateCsrfToken($intention);
+    }      
+    
     /**
      * @param integer $statusCode
      */
@@ -150,38 +178,4 @@ class CategoryControllerTest extends WebTestCase
     {
         $this->assertStringEndsWith($uri, $this->client->getHistory()->current()->getUri());
     }
-    
-     /**
-     * Generates a CSRF token.
-     * 
-     * @return string
-     */
-    protected function generateCsrfToken()
-    {
-        return $this->client->getContainer()->get('form.csrf_provider')->generateCsrfToken('category');
-    }
-
-    /*
-     * Loads the test fixtures into the database.
-     */
-    protected function loadFixtures()
-    {
-        Fixtures::load($this->getFixtures(), self::$kernel->getContainer()->get('doctrine.orm.entity_manager'));       
-    }
-
-    /**
-     * Returns test fixtures.
-     * 
-     * @return array
-     */
-    protected function getFixtures()
-    {
-        return array(
-            'IR\Bundle\CategoryBundle\Tests\Functional\Bundle\TestBundle\Entity\Category' => array(
-                'category{1..3}' => array(
-                    'name' => '<sentence(2)>',
-                )
-            )
-        );
-    }   
 }

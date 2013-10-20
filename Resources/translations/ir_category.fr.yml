@@ -1,21 +1,20 @@
 # Category
 category: 
+    name: Nom
+  
     list:
         title: Catégories
-        column:
-            name: Nom
-            actions: Actions
-        button: 
-            new: Ajouter une catégorie
-        no_categories: Aucune catégorie pour le moment.  
+        no_results: Aucune catégorie pour le moment.  
     new:
         title: Ajouter une catégorie
         save: Enregistrer
         cancel: Annuler           
     edit:
-        title: Modifier une catégorie
+        title: Modifier la catégorie
         save: Enregistrer
-        cancel: Annuler        
+        cancel: Annuler  
+    action:
+        new: Ajouter une catégorie
     flash:
         created: La catégorie a été créée
         updated: La catégorie a été mise à jour

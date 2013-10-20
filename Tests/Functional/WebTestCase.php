@@ -11,12 +11,16 @@
 
 namespace IR\Bundle\CategoryBundle\Tests\Functional;
 
+use Nelmio\Alice\Fixtures;
+
 use Doctrine\ORM\Tools\SchemaTool;
+use Doctrine\ORM\EntityManagerInterface;
+
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
 
 /**
- * Web test case.
+ * Web Test Case.
  *
  * @author Julien Kirsch <informatic.revolution@gmail.com>
  */
@@ -27,7 +31,7 @@ class WebTestCase extends BaseWebTestCase
      */
     protected final function importDatabaseSchema()
     {        
-        $em = self::$kernel->getContainer()->get('doctrine.orm.entity_manager');
+        $em = $this->getEntityManager();
         $metadata = $em->getMetadataFactory()->getAllMetadata();
         
         if (!empty($metadata)) {
@@ -36,7 +40,27 @@ class WebTestCase extends BaseWebTestCase
             $schemaTool->createSchema($metadata);
         }        
     }    
-        
+    
+    /**
+     * Loads fixtures into the database.
+     * 
+     * @return array
+     */    
+    protected function loadFixtures()
+    {        
+        return Fixtures::load(__DIR__.'/Fixtures/category.yml', $this->getEntityManager());       
+    }     
+    
+    /**
+     * Returns doctrine orm entity manager.
+     * 
+     * @return EntityManagerInterface
+     */
+    public function getEntityManager()
+    {        
+        return static::$kernel->getContainer()->get('doctrine.orm.entity_manager');
+    }    
+    
     protected function tearDown()
     {
         $fs = new Filesystem();

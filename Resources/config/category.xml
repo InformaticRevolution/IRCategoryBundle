@@ -12,6 +12,10 @@
         <service id="ir_category.form.category" factory-service="form.factory" factory-method="createNamed" class="Symfony\Component\Form\Form">
             <argument>%ir_category.form.name.category%</argument>
             <argument>%ir_category.form.type.category%</argument>
+            <argument>null</argument>
+            <argument type="collection">
+                <argument key="validation_groups">%ir_category.form.validation_groups.category%</argument>
+            </argument>              
         </service>         
 
         <service id="ir_category.form.type.category" class="%ir_category.form.type.category.class%">

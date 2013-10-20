@@ -11,13 +11,13 @@
 
 namespace IR\Bundle\CategoryBundle\DependencyInjection;
 
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\FileLocator;
 
 /**
- * Category extension.
+ * Category Extension.
  *
  * @author Julien Kirsch <informatic.revolution@gmail.com>
  */
@@ -56,5 +56,6 @@ class IRCategoryExtension extends Extension
         
         $container->setParameter('ir_category.form.name.category', $config['form']['name']);
         $container->setParameter('ir_category.form.type.category', $config['form']['type']);
+        $container->setParameter('ir_category.form.validation_groups.category', $config['form']['validation_groups']);
     }    
 }

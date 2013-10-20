@@ -11,129 +11,88 @@
 
 namespace IR\Bundle\CategoryBundle\Tests\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use IR\Bundle\CategoryBundle\Model\Category;
 
 /**
- * Category test.
+ * Category Test.
  *
  * @author Julien Kirsch <informatic.revolution@gmail.com>
  */
 class CategoryTest extends \PHPUnit_Framework_TestCase
 {
-    public function testId()
+    public function testConstructor()
     {
         $category = $this->getCategory();
         
-        $this->assertNull($category->getId());
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $category->getChildren());
     }
-    
-    public function testName()
-    {
-        $category = $this->getCategory();
-        
-        $this->assertNull($category->getName());
-        $category->setName('Category 1');
-        $this->assertEquals('Category 1', $category->getName());
-    }
-    
-    public function testSlug()
-    {
-        $category = $this->getCategory();
-        
-        $this->assertNull($category->getSlug());
-        $category->setSlug('category-1');
-        $this->assertEquals('category-1', $category->getSlug());
-    }  
-    
-    public function testParent()
-    {
-        $category = $this->getCategory();
-        $parent = $this->getCategory();
-        
-        $this->assertNull($category->getParent());
-        $category->setParent($parent);
-        $this->assertSame($parent, $category->getParent());
-    } 
-    
-    public function testPosition()
-    {
-        $category = $this->getCategory();
-        
-        $this->assertNull($category->getPosition());
-        $category->setPosition(2);
-        $this->assertEquals(2, $category->getPosition());
-    }     
-    
-    public function testChildren()
-    {
-        $category = $this->getCategory();
-        
-        $this->assertEquals(new ArrayCollection(), $category->getChildren());
-    }
-    
+            
     public function testAddChild()
     {
         $category = $this->getCategory();
-        $child = $this->getCategoryMock();
+        $child = $this->getCategory();
         
         $this->assertNotContains($child, $category->getChildren());
+        $this->assertNull($child->getParent());
+        
         $category->addChild($child);
+        
         $this->assertContains($child, $category->getChildren());
-    }
-    
-    public function testAddChildSetParent()
-    {
-        $category = $this->getCategory();
-        $child = $this->getCategoryMock();
-        
-        $child->expects($this->once())
-            ->method('setParent')
-            ->with($this->equalTo($category));
-        
-        $category->addChild($child);
-    }
+        $this->assertSame($category, $child->getParent());        
+    }      
     
     public function testRemoveChild()
     {
         $category = $this->getCategory();
-        $child = $this->getCategoryMock();
+        $child = $this->getCategory();
         $category->addChild($child);
         
         $this->assertContains($child, $category->getChildren());
+        $this->assertSame($category, $child->getParent());  
+        
         $category->removeChild($child);
+        
         $this->assertNotContains($child, $category->getChildren());
+        $this->assertNull($child->getParent());
     }    
     
     public function testHasChild()
     {
         $category = $this->getCategory();
-        $child = $this->getCategoryMock();
+        $child = $this->getCategory();
         
         $this->assertFalse($category->hasChild($child));
         $category->addChild($child);
         $this->assertTrue($category->hasChild($child));
+    }    
+    
+    /**
+     * @dataProvider getSimpleTestData
+     */
+    public function testSimpleSettersGetters($property, $value, $default)
+    {
+        $getter = 'get'.$property;
+        $setter = 'set'.$property;
+        
+        $category = $this->getCategory();
+        
+        $this->assertEquals($default, $category->$getter());
+        $category->$setter($value);
+        $this->assertEquals($value, $category->$getter());
     }
     
-    public function testCreatedAt()
+    public function getSimpleTestData()
     {
-        $category = $this->getCategory();
-        $datetime = new \DateTime();
-        
-        $this->assertNull($category->getCreatedAt());
-        $category->setCreatedAt($datetime);
-        $this->assertSame($datetime, $category->getCreatedAt());
-    } 
-    
-    public function testUpdatedAt()
-    {
-        $category = $this->getCategory();
-        $datetime = new \DateTime();
-        
-        $this->assertNull($category->getUpdatedAt());
-        $category->setUpdatedAt($datetime);
-        $this->assertSame($datetime, $category->getUpdatedAt());
-    }       
+        return array(
+            array('name', 'Category 1', null),
+            array('slug', 'category-1', null),
+            array('permalink', 'category/subcategory', null),
+            array('parent', $this->getCategory(), null),
+            array('position', 2, null),
+            array('createdAt', new \DateTime(), null),
+            array('updatedAt', new \DateTime(), null),            
+        );
+    }   
     
     public function testToString()
     {
@@ -142,21 +101,13 @@ class CategoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('', $category);
         $category->setName('Category 1');
         $this->assertEquals('Category 1', $category);
-    }
-            
+    }    
+    
     /**
      * @return Category
      */
     protected function getCategory()
     {
-        return new Category();
-    }
-    
-    /**
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function getCategoryMock()
-    {
-        return $this->getMock('IR\Bundle\CategoryBundle\Model\CategoryInterface');
-    }
+        return $this->getMockForAbstractClass('IR\Bundle\CategoryBundle\Model\Category');
+    }     
 }

@@ -18,7 +18,7 @@ use IR\Bundle\CategoryBundle\Model\CategoryInterface;
 use IR\Bundle\CategoryBundle\Manager\CategoryManager as AbstractCategoryManager;
 
 /**
- * Doctrine category manager.
+ * Doctrine Category Manager.
  *
  * @author Julien Kirsch <informatic.revolution@gmail.com>
  */

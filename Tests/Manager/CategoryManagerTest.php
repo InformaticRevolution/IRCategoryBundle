@@ -14,13 +14,13 @@ namespace IR\Bundle\CategoryBundle\Tests\Manager;
 use IR\Bundle\CategoryBundle\Manager\CategoryManager;
 
 /**
- * Category manager test.
+ * Category Manager Test.
  *
  * @author Julien Kirsch <informatic.revolution@gmail.com>
  */
 class CategoryManagerTest extends \PHPUnit_Framework_TestCase
 {
-    const CATEGORY_CLASS = 'IR\Bundle\CategoryBundle\Model\Category';
+    const CATEGORY_CLASS = 'IR\Bundle\CategoryBundle\Tests\TestCategory';
  
     /**
      * @var CategoryManager
@@ -39,11 +39,9 @@ class CategoryManagerTest extends \PHPUnit_Framework_TestCase
     
     public function testCreateCategory()
     {        
-        $parent = $this->getCategoryMock();
-        $category = $this->categoryManager->createCategory($parent);
+        $category = $this->categoryManager->createCategory();
         
         $this->assertInstanceOf(static::CATEGORY_CLASS, $category);
-        $this->assertSame($parent, $category->getParent());
     }
 
     /**

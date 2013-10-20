@@ -15,7 +15,7 @@ use Symfony\Component\EventDispatcher\Event;
 use IR\Bundle\CategoryBundle\Model\CategoryInterface;
 
 /**
- * Category event.
+ * Category Event.
  *
  * @author Julien Kirsch <informatic.revolution@gmail.com>
  */

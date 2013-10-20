@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace IR\Bundle\CategoryBundle\Tests\Functional\Bundle\TestBundle;
+namespace IR\Bundle\CategoryBundle\Tests;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use IR\Bundle\CategoryBundle\Model\Category;
 
 /**
- * Test Bundle.
+ * Test Category.
  *
  * @author Julien Kirsch <informatic.revolution@gmail.com>
  */
-class TestBundle extends Bundle
-{
+class TestCategory extends Category
+{    
 }

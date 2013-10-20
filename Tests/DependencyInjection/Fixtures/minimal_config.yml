@@ -1,0 +1,2 @@
+db_driver: orm
+category_class: Acme\CategoryBundle\Entity\Category

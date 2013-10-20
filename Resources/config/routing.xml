@@ -3,27 +3,23 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://symfony.com/schema/routing 
                             http://symfony.com/schema/routing/routing-1.0.xsd">
-
-    <route id="ir_category_list" pattern="/list/{parentId}" methods="GET">
-        <default key="_controller">IRCategoryBundle:Category:list</default>
-        <default key="parentId" />
-    </route>  
     
-    <route id="ir_category_new" pattern="/new/{parentId}" methods="GET|POST">
+    <route id="ir_category_new" pattern="/new/{parentId}">
         <default key="_controller">IRCategoryBundle:Category:new</default>
         <default key="parentId" />
     </route>
 
-    <route id="ir_category_edit" pattern="/{id}/edit" methods="GET|POST">
+    <route id="ir_category_list" pattern="/{parentId}" methods="GET">
+        <default key="_controller">IRCategoryBundle:Category:list</default>
+        <default key="parentId" />
+    </route>  
+
+    <route id="ir_category_edit" pattern="/{id}/edit">
         <default key="_controller">IRCategoryBundle:Category:edit</default>
     </route>   
     
     <route id="ir_category_delete" pattern="/{id}/delete" methods="GET">
         <default key="_controller">IRCategoryBundle:Category:delete</default>
     </route>  
-    
-    <route id="ir_category_move" pattern="/{id}/move" methods="POST">
-        <default key="_controller">IRCategoryBundle:Category:move</default>
-    </route>      
 
 </routes>
