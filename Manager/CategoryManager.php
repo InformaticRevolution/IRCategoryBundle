@@ -26,7 +26,7 @@ abstract class CategoryManager implements CategoryManagerInterface
     public function createCategory(CategoryInterface $parent = null)
     {
         $class = $this->getClass();
-        $category = new $class;
+        $category = new $class();
         $category->setParent($parent);
         
         return $category;
