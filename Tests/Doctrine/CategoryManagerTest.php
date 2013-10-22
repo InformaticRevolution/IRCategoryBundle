@@ -67,7 +67,7 @@ class CategoryManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testUpdateCategory()
     {
-        $category = $this->getCategoryMock();
+        $category = $this->getCategory();
         
         $this->objectManager->expects($this->once())
             ->method('persist')
@@ -81,7 +81,7 @@ class CategoryManagerTest extends \PHPUnit_Framework_TestCase
     
     public function testDeleteCategory()
     {
-        $category = $this->getCategoryMock();
+        $category = $this->getCategory();
         
         $this->objectManager->expects($this->once())
             ->method('remove')
@@ -109,12 +109,11 @@ class CategoryManagerTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(static::CATEGORY_CLASS, $this->categoryManager->getClass());
     }
-    
-    /**
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function getCategoryMock()
+
+    protected function getCategory()
     {
-        return $this->getMock('IR\Bundle\CategoryBundle\Model\CategoryInterface');
-    }
+        $class = static::CATEGORY_CLASS;
+
+        return new $class();
+    }     
 }
