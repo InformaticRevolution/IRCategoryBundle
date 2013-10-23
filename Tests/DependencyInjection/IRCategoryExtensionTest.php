@@ -33,7 +33,7 @@ class IRCategoryExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testCategoryLoadThrowsExceptionUnlessDatabaseDriverSet()
     {
-        $loader = $this->getIRCategoryExtension();
+        $loader = new IRCategoryExtension();
         $config = $this->getEmptyConfig();
         unset($config['db_driver']);
         $loader->load(array($config), new ContainerBuilder());
@@ -44,7 +44,7 @@ class IRCategoryExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testCategoryLoadThrowsExceptionUnlessDatabaseDriverIsValid()
     {
-        $loader = $this->getIRCategoryExtension();
+        $loader = new IRCategoryExtension();
         $config = $this->getEmptyConfig();
         $config['db_driver'] = 'foo';
         $loader->load(array($config), new ContainerBuilder());
@@ -55,7 +55,7 @@ class IRCategoryExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testCategoryLoadThrowsExceptionUnlessCategoryModelClassSet()
     {
-        $loader = $this->getIRCategoryExtension();
+        $loader = new IRCategoryExtension();
         $config = $this->getEmptyConfig();
         unset($config['category_class']);
         $loader->load(array($config), new ContainerBuilder());
@@ -64,7 +64,7 @@ class IRCategoryExtensionTest extends \PHPUnit_Framework_TestCase
     public function testDisableCategory()
     {
         $this->configuration = new ContainerBuilder();
-        $loader = $this->getIRCategoryExtension();
+        $loader = new IRCategoryExtension();
         $config = $this->getEmptyConfig();
         $config['category'] = false;
         $loader->load(array($config), $this->configuration);
@@ -160,7 +160,7 @@ class IRCategoryExtensionTest extends \PHPUnit_Framework_TestCase
     protected function createEmptyConfiguration()
     {
         $this->configuration = new ContainerBuilder();
-        $loader = $this->getIRCategoryExtension();
+        $loader = new IRCategoryExtension();
         $config = $this->getEmptyConfig();
         $loader->load(array($config), $this->configuration);
         $this->assertTrue($this->configuration instanceof ContainerBuilder);
@@ -169,7 +169,7 @@ class IRCategoryExtensionTest extends \PHPUnit_Framework_TestCase
     protected function createFullConfiguration()
     {
         $this->configuration = new ContainerBuilder();
-        $loader = $this->getIRCategoryExtension();
+        $loader = new IRCategoryExtension();
         $config = $this->getFullConfig();
         $loader->load(array($config), $this->configuration);
         $this->assertTrue($this->configuration instanceof ContainerBuilder);
@@ -194,15 +194,7 @@ class IRCategoryExtensionTest extends \PHPUnit_Framework_TestCase
 
         return $parser->parse(file_get_contents(__DIR__.'/Fixtures/full_config.yml'));
     }   
-    
-    /**
-     * @return IRCategoryExtension
-     */
-    public function getIRCategoryExtension()
-    {
-        return new IRCategoryExtension();
-    }    
-    
+
     /**
      * @param string $value
      * @param string $key
@@ -237,7 +229,7 @@ class IRCategoryExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(($this->configuration->hasDefinition($id) ?: $this->configuration->hasAlias($id)));
     }    
     
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->configuration);
     }    
