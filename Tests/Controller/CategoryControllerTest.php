@@ -138,16 +138,16 @@ class CategoryControllerTest extends WebTestCase
     
     public function testNotFoundHttpWhenCategoryNotExist()
     {
-        $this->client->request('GET', '/category/4');
+        $this->client->request('GET', '/categories/4');
         $this->assertResponseStatusCode(404); 
         
-        $this->client->request('GET', '/category/new/4');
+        $this->client->request('GET', '/categories/new/4');
         $this->assertResponseStatusCode(404);        
         
-        $this->client->request('GET', '/category/4/edit');
+        $this->client->request('GET', '/categories/4/edit');
         $this->assertResponseStatusCode(404);
         
-        $this->client->request('GET', '/category/4/delete');
+        $this->client->request('GET', '/categories/4/delete');
         $this->assertResponseStatusCode(404);        
     }    
     
