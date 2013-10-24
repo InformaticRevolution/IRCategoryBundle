@@ -132,6 +132,7 @@ class CategoryControllerTest extends WebTestCase
         
         $crawler = $this->client->followRedirect();
         
+        $this->assertResponseStatusCode(200);
         $this->assertCurrentUri('/categories');
         $this->assertCount(2, $crawler->filter('table tbody tr'));
     }     
