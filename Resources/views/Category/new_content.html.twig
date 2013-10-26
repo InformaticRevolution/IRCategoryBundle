@@ -4,10 +4,10 @@
     <h1>{{ 'category.new.title'|trans }}</h1>
 </div>
 
-<form action="{{ path('ir_category_new', {'parentId': parentId}) }}" {{ form_enctype(form) }} method="POST" novalidate>
+<form action="{{ path('ir_category_new', {'parentId': parentId}) }}" {{ form_enctype(form) }} method="POST" class="form-horizontal" novalidate>
     {% include 'IRCategoryBundle:Category:form.html.twig' %}
     <div>
         <button type="submit" class="btn btn-primary">{{ 'category.new.save'|trans }}</button>
-        <a href="{{ app.request.headers.get('referer') }}" class="btn">{{ 'category.new.cancel'|trans }}</a>          
+        <a href="{{ path('ir_category_list', {'parentId': parentId}) }}" class="btn">{{ 'category.new.cancel'|trans }}</a>          
     </div>         
 </form>

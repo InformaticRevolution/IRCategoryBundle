@@ -12,12 +12,10 @@
     </h1>
 </div>
 
-<div class="panel panel-default">
-    <div class="panel-body">
-        <a href="{{ path('ir_category_new', {'parentId' : parentId}) }}" class="btn btn-primary">
-            <i class="glyphicon glyphicon-plus"></i> {{ 'category.action.new'|trans }}
-        </a>
-    </div>
+<div class="well well-sm">
+    <a href="{{ path('ir_category_new', {'parentId' : parentId}) }}" class="btn btn-primary">
+        <i class="glyphicon glyphicon-plus"></i> {{ 'category.action.new'|trans }}
+    </a>
 </div>      
 
 {{ macros.breadcrumb(path) }}
@@ -40,6 +38,9 @@
             </td>
             <td>
                 <div class="pull-right">
+                    <a href="{{ path('ir_category_list', {'parentId': category.id}) }}" class="btn btn-default">
+                        <i class="glyphicon glyphicon-list"></i>
+                    </a>                        
                     <a href="{{ path('ir_category_edit', {'id': category.id}) }}" class="btn btn-primary">
                         <i class="glyphicon glyphicon-edit"></i>
                     </a>                         
