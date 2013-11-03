@@ -63,6 +63,17 @@ interface CategoryManagerInterface
     public function getRootCategories($sortByField = null, $direction = 'asc'); 
     
     /**
+     * Returns an array of categories hierarchy.
+     *
+     * @param CategoryInterface|null $category
+     * @param Boolean                $directChildren
+     * @param Boolean                $includeCategory
+     *
+     * @return array
+     */
+    public function getCategoriesHierarchy(CategoryInterface $category = null, $directChildren = false, $includeCategory = false);    
+    
+    /**
      * Returns the tree path of categories by given category.
      *
      * @param CategoryInterface $category
