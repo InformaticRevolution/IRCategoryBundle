@@ -30,9 +30,15 @@ class CategoryController extends ContainerAware
     /**
      * List all the categories of given category.
      */
-    public function listAction($parentId = null, $path = array())
+    public function listAction(Request $request)
     {
-        $parent = $parentId ? $this->findCategoryById($parentId) : null;
+        $parentId = $parent = null;
+        $path = array();
+        
+        if ($request->query->has('parentId')) {
+            $parentId = $request->query->get('parentId');
+            $parent = $this->findCategoryById($parentId);
+        }
         
         /* @var $categoryManager \IR\Bundle\CategoryBundle\Manager\CategoryManagerInterface */
         $categoryManager = $this->container->get('ir_category.manager.category');
@@ -44,7 +50,7 @@ class CategoryController extends ContainerAware
         else {
             $categories = $categoryManager->getRootCategories('position', 'asc');
         }
-
+        
         return $this->container->get('templating')->renderResponse('IRCategoryBundle:Category:list.html.'.$this->getEngine(), array(
             'path' => $path,
             'parent' => $parent,
@@ -54,12 +60,29 @@ class CategoryController extends ContainerAware
     }     
     
     /**
+     * Show category details.
+     */
+    public function showAction($id)
+    {
+        $category = $this->findCategoryById($id);
+
+        return $this->container->get('templating')->renderResponse('IRCategoryBundle:Category:show.html.'.$this->getEngine(), array(
+            'category' => $category
+        ));
+    }      
+    
+    /**
      * Create a new category: show the new form.
      */
-    public function newAction(Request $request, $parentId = null)
-    {               
-        $parent = $parentId ? $this->findCategoryById($parentId) : null;
-
+    public function newAction(Request $request)
+    {   
+        $parentId = $parent = null;
+        
+        if ($request->query->has('parentId')) {
+            $parentId = $request->query->get('parentId');
+            $parent = $this->findCategoryById($parentId);
+        }
+        
         /* @var $categoryManager \IR\Bundle\CategoryBundle\Manager\CategoryManagerInterface */
         $categoryManager = $this->container->get('ir_category.manager.category');
         $category = $categoryManager->createCategory($parent);

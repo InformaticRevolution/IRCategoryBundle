@@ -1,10 +1,15 @@
 # Category
 category: 
     name: Name
+    created_at: Creation time
+    updated_at: Last update time
   
     list:
         title: Categories
-        no_results: You haven't added any category yet.  
+        no_results: You haven't added any category yet.
+    show:
+        title: Category details
+        general_info: General information         
     new:
         title: Add category
         save: Save
@@ -14,7 +19,9 @@ category:
         save: Save
         cancel: Cancel
     action:
-        new: Add a category        
+        new: Add a category 
+        edit: Edit
+        delete: Delete            
     flash:
         created: The category has been successfully created
         updated: The category has been successfully updated

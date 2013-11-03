@@ -1,10 +1,15 @@
 # Category
 category: 
     name: Nom
+    created_at: Date de création
+    updated_at: Date de mise à jour
   
     list:
         title: Catégories
-        no_results: Aucune catégorie pour le moment.  
+        no_results: Aucune catégorie pour le moment. 
+    show:
+        title: Catégorie
+        general_info: Informations générales          
     new:
         title: Ajouter une catégorie
         save: Enregistrer
@@ -15,6 +20,8 @@ category:
         cancel: Annuler  
     action:
         new: Ajouter une catégorie
+        edit: Modifier
+        delete: Supprimer        
     flash:
         created: La catégorie a été créée
         updated: La catégorie a été mise à jour

@@ -35,15 +35,30 @@ class CategoryControllerTest extends WebTestCase
         $this->importDatabaseSchema();
         $this->loadFixtures();
     }
-            
+
     public function testListAction()
     {
-        $crawler = $this->client->request('GET', '/categories');
+        $crawler = $this->client->request('GET', '/categories/');
 
         $this->assertResponseStatusCode(200);
         $this->assertCount(3, $crawler->filter('table tbody tr'));
-    }    
+    }
+    
+    public function testListActionWithParentCategory()
+    {
+        $crawler = $this->client->request('GET', '/categories/?parentId=1');
+
+        $this->assertResponseStatusCode(200);
+        $this->assertCount(0, $crawler->filter('table tbody tr'));
+    }       
+
+    public function testShowAction()
+    {
+        $this->client->request('GET', '/categories/1');
         
+        $this->assertResponseStatusCode(200);
+    }      
+    
     public function testNewActionGetMethod()
     {
         $crawler = $this->client->request('GET', '/categories/new');
@@ -66,21 +81,14 @@ class CategoryControllerTest extends WebTestCase
         $crawler = $this->client->followRedirect();
         
         $this->assertResponseStatusCode(200);
-        $this->assertCurrentUri('/categories');
+        $this->assertCurrentUri('/categories/');
         $this->assertCount(4, $crawler->filter('table tbody tr'));
         $this->assertRegExp('~Category 1~', $crawler->filter('table tbody')->text());        
     }
     
-    public function testNewActionGetMethodWithParentCategory()
-    {
-        $this->client->request('GET', '/categories/new/1');
-        
-        $this->assertResponseStatusCode(200);
-    }   
-    
     public function testNewActionPostMethodWithParentCategory()
     {        
-        $this->client->request('POST', '/categories/new/1', array(
+        $this->client->request('POST', '/categories/new?parentId=1', array(
             'ir_category_form' => array (
                 'name' => 'Category 1',
                 '_token' => $this->generateCsrfToken(static::FORM_INTENTION),
@@ -92,7 +100,7 @@ class CategoryControllerTest extends WebTestCase
         $crawler = $this->client->followRedirect();
         
         $this->assertResponseStatusCode(200);
-        $this->assertCurrentUri('/categories/1');
+        $this->assertCurrentUri('/categories/?parentId=1');
         $this->assertCount(1, $crawler->filter('table tbody tr'));
         $this->assertRegExp('~Category 1~', $crawler->filter('table tbody')->text());        
     }    
@@ -119,7 +127,7 @@ class CategoryControllerTest extends WebTestCase
         $crawler = $this->client->followRedirect();
         
         $this->assertResponseStatusCode(200);
-        $this->assertCurrentUri('/categories');
+        $this->assertCurrentUri('/categories/');
         $this->assertCount(3, $crawler->filter('table tbody tr'));
         $this->assertRegExp('~Category 1~', $crawler->filter('table tbody')->text());      
     }
@@ -133,14 +141,17 @@ class CategoryControllerTest extends WebTestCase
         $crawler = $this->client->followRedirect();
         
         $this->assertResponseStatusCode(200);
-        $this->assertCurrentUri('/categories');
+        $this->assertCurrentUri('/categories/');
         $this->assertCount(2, $crawler->filter('table tbody tr'));
     }     
     
     public function testNotFoundHttpWhenCategoryNotExist()
-    {
-        $this->client->request('GET', '/categories/4');
+    {   
+        $this->client->request('GET', '/categories/?parentId=4');
         $this->assertResponseStatusCode(404); 
+        
+        $this->client->request('GET', '/categories/4');
+        $this->assertResponseStatusCode(404);         
         
         $this->client->request('GET', '/categories/new/4');
         $this->assertResponseStatusCode(404);        
@@ -150,7 +161,7 @@ class CategoryControllerTest extends WebTestCase
         
         $this->client->request('GET', '/categories/4/delete');
         $this->assertResponseStatusCode(404);        
-    }    
+    }  
     
     /**
      * Generates a CSRF token.

@@ -1,0 +1,37 @@
+{% trans_default_domain 'ir_category' %}
+
+<div class="page-header">
+    <h1>{{ 'category.show.title'|trans }}</h1>
+</div>  
+
+<div class="well well-sm">
+    <a href="{{ path('ir_category_edit', {'id': category.id}) }}" class="btn btn-primary">
+        <i class="glyphicon glyphicon-edit"></i> {{ 'category.action.edit'|trans }}
+    </a>
+    <a href="{{ path('ir_category_delete', {'id': category.id}) }}" class="btn btn-danger">
+        <i class="glyphicon glyphicon-trash"></i> {{ 'category.action.delete'|trans }}
+    </a>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        {{ 'category.show.general_info'|trans }}
+    </div>
+
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td>{{ 'category.name'|trans }}</td>
+                <td>{{ category.name }}</td>        
+            </tr>  
+            <tr>
+                <td>{{ 'category.created_at'|trans }}</td>
+                <td>{{ category.createdAt|date }}</td>
+            </tr>  
+            <tr>
+                <td>{{ 'category.updated_at'|trans }}</td>
+                <td>{{ category.updatedAt|date }}</td>
+            </tr>          
+        </tbody>
+    </table>
+</div>
