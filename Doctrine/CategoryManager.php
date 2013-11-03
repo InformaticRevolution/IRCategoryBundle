@@ -98,9 +98,9 @@ class CategoryManager extends AbstractCategoryManager
     /**
      * {@inheritDoc}
      */    
-    public function getCategoriesHierarchy(CategoryInterface $category = null, $directChildren = false, $includeCategory = false)
+    public function getCategoriesHierarchy(CategoryInterface $category = null, $directChildrenOnly = false, $includeCategory = false)
     {
-        return $this->repository->getNodesHierarchy($category, $directChildren, array(), $includeCategory);
+        return $this->repository->childrenHierarchy($category, $directChildrenOnly, array(), $includeCategory);
     }
     
     /**
