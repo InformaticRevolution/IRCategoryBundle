@@ -32,24 +32,19 @@ class CategoryController extends ContainerAware
      */
     public function listAction(Request $request)
     {
-        $parentId = $parent = null;
         $path = array();
-        
-        if ($request->query->has('parentId')) {
-            $parentId = $request->query->get('parentId');
-            $parent = $this->findCategoryById($parentId);
-        }
+        $parentId = $parent = null;        
         
         /* @var $categoryManager \IR\Bundle\CategoryBundle\Manager\CategoryManagerInterface */
         $categoryManager = $this->container->get('ir_category.manager.category');
-
-        if (null !== $parent) {
-            $path = $categoryManager->getPath($parent);
-            $categories = $parent->getChildren();
+                
+        if ($request->query->has('parentId')) {
+            $parentId = $request->query->get('parentId');
+            $parent = $this->findCategoryById($parentId);
+            $path = $categoryManager->getCategoryPath($parent);
         }
-        else {
-            $categories = $categoryManager->getRootCategories('position', 'asc');
-        }
+        
+        $categories = $categoryManager->getChildrenCategories($parent, array('position' => 'ASC'));
         
         return $this->container->get('templating')->renderResponse('IRCategoryBundle:Category:list.html.'.$this->getEngine(), array(
             'path' => $path,
@@ -65,7 +60,7 @@ class CategoryController extends ContainerAware
     public function showAction($id)
     {
         $category = $this->findCategoryById($id);
-        $path = $this->container->get('ir_category.manager.category')->getPath($category);
+        $path = $this->container->get('ir_category.manager.category')->getCategoryPath($category);
 
         return $this->container->get('templating')->renderResponse('IRCategoryBundle:Category:show.html.'.$this->getEngine(), array(
             'path' => $path,

@@ -90,11 +90,11 @@ class CategoryManager extends AbstractCategoryManager
     /**
      * {@inheritDoc}
      */
-    public function getRootCategories($sortByField = null, $direction = 'asc')
-    {   
-        return $this->repository->getRootNodes($sortByField, $direction);
-    }    
-
+    public function findCategoriesBy(array $criteria, array $orderBy = null)
+    {
+        return $this->repository->findBy($criteria, $orderBy);
+    }
+    
     /**
      * {@inheritDoc}
      */    
@@ -106,7 +106,7 @@ class CategoryManager extends AbstractCategoryManager
     /**
      * {@inheritDoc}
      */
-    public function getPath(CategoryInterface $category)
+    public function getCategoryPath(CategoryInterface $category)
     {
         return $this->repository->getPath($category);
     }

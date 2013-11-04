@@ -43,7 +43,20 @@ class CategoryManagerTest extends \PHPUnit_Framework_TestCase
         
         $this->assertInstanceOf(static::CATEGORY_CLASS, $category);
     }
-
+    
+    public function testGetChildrenCategories()
+    {
+        $category = $this->getCategoryMock();
+        $orderBy = array('foo' => 'bar');
+        
+        $this->categoryManager->expects($this->once())
+            ->method('findCategoriesBy')
+            ->with($this->equalTo(array('parent' => $category)), $this->equalTo($orderBy))
+            ->will($this->returnValue(array()));
+        
+        $this->categoryManager->getChildrenCategories($category, $orderBy);
+    }
+    
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject
      */

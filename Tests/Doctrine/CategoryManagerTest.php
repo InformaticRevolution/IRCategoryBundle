@@ -104,6 +104,19 @@ class CategoryManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->categoryManager->findCategoryBy($criteria);
     }
+    
+    public function testFindCategoriesBy()
+    {
+        $criteria = array("foo" => "bar");
+        $orderBy = array("position" => 'ASC');
+        
+        $this->repository->expects($this->once())
+            ->method('findBy')
+            ->with($this->equalTo($criteria), $this->equalTo($orderBy))
+            ->will($this->returnValue(array()));
+
+        $this->categoryManager->findCategoriesBy($criteria, $orderBy);
+    }    
 
     public function testGetClass()
     {
