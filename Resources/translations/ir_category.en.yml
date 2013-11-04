@@ -1,6 +1,7 @@
 # Category
 category: 
     name: Name
+    permalink: Permalink
     created_at: Creation time
     updated_at: Last update time
   
@@ -8,7 +9,6 @@ category:
         title: Categories
         no_results: You haven't added any category yet.
     show:
-        title: Category details
         general_info: General information         
     new:
         title: Add category

@@ -41,7 +41,7 @@ class CategoryControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', '/categories/');
 
         $this->assertResponseStatusCode(200);
-        $this->assertCount(3, $crawler->filter('table tbody tr'));
+        $this->assertCount(3, $crawler->filter('ul.list-group li'));
     }
     
     public function testListActionWithParentCategory()
@@ -49,7 +49,7 @@ class CategoryControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', '/categories/?parentId=1');
 
         $this->assertResponseStatusCode(200);
-        $this->assertCount(0, $crawler->filter('table tbody tr'));
+        $this->assertCount(0, $crawler->filter('ul.list-group li'));
     }       
 
     public function testShowAction()
@@ -82,8 +82,8 @@ class CategoryControllerTest extends WebTestCase
         
         $this->assertResponseStatusCode(200);
         $this->assertCurrentUri('/categories/');
-        $this->assertCount(4, $crawler->filter('table tbody tr'));
-        $this->assertRegExp('~Category 1~', $crawler->filter('table tbody')->text());        
+        $this->assertCount(4, $crawler->filter('ul.list-group li'));
+        $this->assertRegExp('~Category 1~', $crawler->filter('ul.list-group')->text());        
     }
     
     public function testNewActionPostMethodWithParentCategory()
@@ -101,8 +101,8 @@ class CategoryControllerTest extends WebTestCase
         
         $this->assertResponseStatusCode(200);
         $this->assertCurrentUri('/categories/?parentId=1');
-        $this->assertCount(1, $crawler->filter('table tbody tr'));
-        $this->assertRegExp('~Category 1~', $crawler->filter('table tbody')->text());        
+        $this->assertCount(1, $crawler->filter('ul.list-group li'));
+        $this->assertRegExp('~Category 1~', $crawler->filter('ul.list-group')->text());        
     }    
     
     public function testEditActionGetMethod()
@@ -128,8 +128,8 @@ class CategoryControllerTest extends WebTestCase
         
         $this->assertResponseStatusCode(200);
         $this->assertCurrentUri('/categories/');
-        $this->assertCount(3, $crawler->filter('table tbody tr'));
-        $this->assertRegExp('~Category 1~', $crawler->filter('table tbody')->text());      
+        $this->assertCount(3, $crawler->filter('ul.list-group li'));
+        $this->assertRegExp('~Category 1~', $crawler->filter('ul.list-group')->text());      
     }
     
     public function testDeleteAction()
@@ -142,7 +142,7 @@ class CategoryControllerTest extends WebTestCase
         
         $this->assertResponseStatusCode(200);
         $this->assertCurrentUri('/categories/');
-        $this->assertCount(2, $crawler->filter('table tbody tr'));
+        $this->assertCount(2, $crawler->filter('ul.list-group li'));
     }     
     
     public function testNotFoundHttpWhenCategoryNotExist()

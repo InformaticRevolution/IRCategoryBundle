@@ -12,49 +12,47 @@
     </h1>
 </div>
 
-<div class="well well-sm">
-    <a href="{{ path('ir_category_new', {'parentId' : parentId}) }}" class="btn btn-primary">
-        <i class="glyphicon glyphicon-plus"></i> {{ 'category.action.new'|trans }}
-    </a>
-</div>      
-
 {{ macros.breadcrumb(path) }}
 
-{% if categories|length %}
-<table class="table table-striped">          
-    <thead>
-        <tr>
-            <th>{{ 'category.name'|trans }}</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for category in categories %}
-        <tr>
-            <td>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="{{ path('ir_category_new', {'parentId' : parentId}) }}" class="btn btn-primary">
+            <i class="glyphicon glyphicon-plus"></i> {{ 'category.action.new'|trans }}
+        </a>    
+    </div>
+        
+    {% if categories|length %}
+    <ul class="list-group">
+        {% for category in categories %}
+        <li class="list-group-item clearfix">
+            <div class="pull-left">
                 <a href="{{ path('ir_category_list', {'parentId': category.id}) }}" class="btn btn-link">
                     {{ category.name }}
+                </a> 
+            </div>
+            <div class="pull-right">
+                <a href="{{ path('ir_category_show', {'id': category.id}) }}" class="btn btn-default">
+                    <i class="glyphicon glyphicon-list"></i>
+                </a>                        
+                <a href="{{ path('ir_category_edit', {'id': category.id}) }}" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-edit"></i>
+                </a>                         
+                <a href="{{ path('ir_category_delete', {'id': category.id}) }}" class="btn btn-danger">
+                    <i class="glyphicon glyphicon-trash"></i>
                 </a>
-            </td>
-            <td>
-                <div class="pull-right">
-                    <a href="{{ path('ir_category_show', {'id': category.id}) }}" class="btn btn-default">
-                        <i class="glyphicon glyphicon-list"></i>
-                    </a>                        
-                    <a href="{{ path('ir_category_edit', {'id': category.id}) }}" class="btn btn-primary">
-                        <i class="glyphicon glyphicon-edit"></i>
-                    </a>                         
-                    <a href="{{ path('ir_category_delete', {'id': category.id}) }}" class="btn btn-danger">
-                        <i class="glyphicon glyphicon-trash"></i>
-                    </a>
-                </div>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
-{% else %}
-<div class="well">
-    {{ 'category.list.no_results'|trans }}
+            </div>                
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="panel-body">
+        {{ 'category.list.no_results'|trans }}
+    </div>
+    {% endif %}
+        
+    <div class="panel-footer">
+        <a href="{{ path('ir_category_new', {'parentId' : parentId}) }}" class="btn btn-primary">
+            <i class="glyphicon glyphicon-plus"></i> {{ 'category.action.new'|trans }}
+        </a>    
+    </div>        
 </div>
-{% endif %}

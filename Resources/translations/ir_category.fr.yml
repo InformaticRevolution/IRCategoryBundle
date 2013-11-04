@@ -1,6 +1,7 @@
 # Category
 category: 
     name: Nom
+    permalink: Permalien
     created_at: Date de création
     updated_at: Date de mise à jour
   
@@ -8,7 +9,6 @@ category:
         title: Catégories
         no_results: Aucune catégorie pour le moment. 
     show:
-        title: Catégorie
         general_info: Informations générales          
     new:
         title: Ajouter une catégorie

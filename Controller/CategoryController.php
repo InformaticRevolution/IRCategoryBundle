@@ -65,8 +65,10 @@ class CategoryController extends ContainerAware
     public function showAction($id)
     {
         $category = $this->findCategoryById($id);
+        $path = $this->container->get('ir_category.manager.category')->getPath($category);
 
         return $this->container->get('templating')->renderResponse('IRCategoryBundle:Category:show.html.'.$this->getEngine(), array(
+            'path' => $path,
             'category' => $category
         ));
     }      
