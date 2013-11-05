@@ -44,7 +44,7 @@ interface CategoryManagerInterface
     public function deleteCategory(CategoryInterface $category);    
 
     /**
-     * Finds a category by the given criteria.
+     * Finds a category by given criteria.
      *
      * @param array $criteria
      *
@@ -53,17 +53,27 @@ interface CategoryManagerInterface
     public function findCategoryBy(array $criteria);    
     
     /**
-     * Returns all root categories.
-     *
-     * @param string $sortByField
-     * @param string $direction
+     * Finds categories by given criteria.
+     * 
+     * @param array      $criteria
+     * @param array|null $orderBy
      * 
      * @return array
      */
-    public function getRootCategories($sortByField = null, $direction = 'asc'); 
+    public function findCategoriesBy(array $criteria, array $orderBy = null);
     
     /**
-     * Returns the nested array.
+     * Returns the list of children categories by given node.
+     * 
+     * @param CategoryInterface|null $category
+     * @param array|null             $orderBy
+     * 
+     * @return array
+     */
+    public function getChildrenCategories(CategoryInterface $category = null, array $orderBy = null);
+    
+    /**
+     * Returns the categories hierarchy by given category.
      *
      * @param CategoryInterface|null $category
      * @param Boolean                $directChildrenOnly
@@ -80,7 +90,7 @@ interface CategoryManagerInterface
      * 
      * @return array
      */
-    public function getPath(CategoryInterface $category);
+    public function getCategoryPath(CategoryInterface $category);
 
     /**
      * Returns the category's fully qualified class name.

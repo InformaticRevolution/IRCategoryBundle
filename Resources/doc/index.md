@@ -231,7 +231,7 @@ public function registerBundles()
 }
 ```
 
-**b) Enable the tree, sortable and sluggable and timestampable extensions in your `config.yml` file**
+**b) Enable the tree, sortable, sluggable and timestampable extensions in your `config.yml` file**
 
 ``` yaml
 # app/config/config.yml

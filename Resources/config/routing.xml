@@ -11,7 +11,7 @@
     <route id="ir_category_new" pattern="/new">
         <default key="_controller">IRCategoryBundle:Category:new</default>
     </route>    
-
+    
     <route id="ir_category_show" pattern="/{id}" methods="GET">
         <default key="_controller">IRCategoryBundle:Category:show</default>
     </route>
@@ -23,5 +23,8 @@
     <route id="ir_category_delete" pattern="/{id}/delete" methods="GET">
         <default key="_controller">IRCategoryBundle:Category:delete</default>
     </route>  
-
+    
+    <route id="ir_category_move" pattern="/{id}/move" methods="GET">
+        <default key="_controller">IRCategoryBundle:Category:move</default>
+    </route>     
 </routes>

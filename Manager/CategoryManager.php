@@ -31,4 +31,12 @@ abstract class CategoryManager implements CategoryManagerInterface
         
         return $category;
     } 
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getChildrenCategories(CategoryInterface $category = null, array $orderBy = null)
+    {
+        return $this->findCategoriesBy(array('parent' => $category), $orderBy);
+    }
 }

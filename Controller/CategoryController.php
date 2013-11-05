@@ -12,6 +12,7 @@
 namespace IR\Bundle\CategoryBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -148,8 +149,23 @@ class CategoryController extends ContainerAware
         $dispatcher->dispatch(IRCategoryEvents::CATEGORY_DELETE_COMPLETED, new CategoryEvent($category));
                 
         return new RedirectResponse($this->container->get('router')->generate('ir_category_list', array('parentId' => $parentId)));  
-    }      
+    }  
+    
+    /**
+     * Move a category.
+     */
+    public function moveAction(Request $request, $id)
+    {        
+        $category = $this->findCategoryById($id);
+        
+        if ($request->query->has('position')) {
+            $category->setPosition($request->query->get('position'));
+            $this->container->get('ir_category.manager.category')->updateCategory($category);
+        }
 
+        return new JsonResponse(array('success' => true));         
+    }
+            
     /**
      * Finds a category by id.
      *

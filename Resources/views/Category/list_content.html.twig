@@ -24,7 +24,7 @@
     {% if categories|length %}
     <ul class="list-group">
         {% for category in categories %}
-        <li class="list-group-item clearfix">
+        <li class="list-group-item clearfix" data-category="{{ category.id }}">
             <div class="pull-left">
                 <a href="{{ path('ir_category_list', {'parentId': category.id}) }}" class="btn btn-link">
                     {{ category.name }}
