@@ -1,4 +1,4 @@
-{% import 'IRCategoryBundle:Category:macros.html.twig' as macros %}
+{% import 'IRCategoryBundle:Admin/Category:macros.html.twig' as macros %}
 
 {% trans_default_domain 'ir_category' %}
 
@@ -9,17 +9,17 @@
 {{ macros.breadcrumb(path) }}
 
 <div class="well well-sm">
-    <a href="{{ path('ir_category_edit', {'id': category.id}) }}" class="btn btn-primary">
-        <i class="glyphicon glyphicon-edit"></i> {{ 'category.action.edit'|trans }}
+    <a href="{{ path('ir_category_admin_category_edit', {'id': category.id}) }}" class="btn btn-primary">
+        <i class="glyphicon glyphicon-edit"></i> {{ 'admin.category.action.edit'|trans }}
     </a>
-    <a href="{{ path('ir_category_delete', {'id': category.id}) }}" class="btn btn-danger">
-        <i class="glyphicon glyphicon-trash"></i> {{ 'category.action.delete'|trans }}
+    <a href="{{ path('ir_category_admin_category_delete', {'id': category.id}) }}" class="btn btn-danger">
+        <i class="glyphicon glyphicon-trash"></i> {{ 'admin.category.action.delete'|trans }}
     </a>
 </div>
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        {{ 'category.show.general_info'|trans }}
+        {{ 'admin.category.show.general_info'|trans }}
     </div>
         
     <table class="table table-bordered">
@@ -29,19 +29,19 @@
         </colgroup>     
         <tbody>
             <tr>
-                <td>{{ 'category.name'|trans }}</td>
+                <td>{{ 'admin.category.name'|trans }}</td>
                 <td>{{ category.name }}</td>        
             </tr>  
             <tr>
-                <td>{{ 'category.permalink'|trans }}</td>
+                <td>{{ 'admin.category.permalink'|trans }}</td>
                 <td>{{ category.permalink }}</td>        
             </tr>              
             <tr>
-                <td>{{ 'category.created_at'|trans }}</td>
+                <td>{{ 'admin.category.created_at'|trans }}</td>
                 <td>{{ category.createdAt|date }}</td>
             </tr>  
             <tr>
-                <td>{{ 'category.updated_at'|trans }}</td>
+                <td>{{ 'admin.category.updated_at'|trans }}</td>
                 <td>{{ category.updatedAt|date }}</td>
             </tr>          
         </tbody>

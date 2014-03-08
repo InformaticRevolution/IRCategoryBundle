@@ -1,0 +1,13 @@
+{% trans_default_domain 'ir_category' %}
+
+<div class="page-header">
+    <h1>{{ 'admin.category.new.title'|trans }}</h1>
+</div>
+
+<form action="{{ path('ir_category_admin_category_new', {'parentId': parentId}) }}" {{ form_enctype(form) }} method="POST" class="form-horizontal" novalidate>
+    {% include 'IRCategoryBundle:Admin/Category:form.html.twig' %}
+    <div>
+        <button type="submit" class="btn btn-primary">{{ 'admin.category.new.save'|trans }}</button>
+        <a href="{{ path('ir_category_admin_category_list', {'parentId': parentId}) }}" class="btn">{{ 'admin.category.new.cancel'|trans }}</a>          
+    </div>         
+</form>

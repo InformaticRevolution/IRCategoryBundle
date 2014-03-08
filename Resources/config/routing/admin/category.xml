@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing 
+                            http://symfony.com/schema/routing/routing-1.0.xsd">
+        
+    <route id="ir_category_admin_category_list" pattern="/" methods="GET">
+        <default key="_controller">IRCategoryBundle:Admin/Category:list</default>
+    </route>  
+
+    <route id="ir_category_admin_category_new" pattern="/new">
+        <default key="_controller">IRCategoryBundle:Admin/Category:new</default>
+    </route>    
+    
+    <route id="ir_category_admin_category_show" pattern="/{id}" methods="GET">
+        <default key="_controller">IRCategoryBundle:Admin/Category:show</default>
+    </route>
+
+    <route id="ir_category_admin_category_edit" pattern="/{id}/edit">
+        <default key="_controller">IRCategoryBundle:Admin/Category:edit</default>
+    </route>   
+    
+    <route id="ir_category_admin_category_delete" pattern="/{id}/delete" methods="GET">
+        <default key="_controller">IRCategoryBundle:Admin/Category:delete</default>
+    </route>  
+    
+    <route id="ir_category_admin_category_move" pattern="/{id}/move" methods="GET">
+        <default key="_controller">IRCategoryBundle:Admin/Category:move</default>
+    </route>     
+</routes>

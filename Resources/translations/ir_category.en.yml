@@ -1,31 +1,33 @@
-# Category
-category: 
-    name: Name
-    permalink: Permalink
-    created_at: Creation time
-    updated_at: Last update time
-  
-    list:
-        title: Categories
-        no_results: You haven't added any category yet.
-    show:
-        general_info: General information         
-    new:
-        title: Add category
-        save: Save
-        cancel: Cancel         
-    edit:
-        title: Edit category   
-        save: Save
-        cancel: Cancel
-    action:
-        new: Add a category 
-        edit: Edit
-        delete: Delete            
-    flash:
-        created: The category has been successfully created
-        updated: The category has been successfully updated
-        deleted: The category has been successfully deleted
+# Administration
+admin:
+    # Category
+    category: 
+        name: Name
+        permalink: Permalink
+        created_at: Creation time
+        updated_at: Last update time
+
+        list:
+            title: Categories
+            no_results: You haven't added any category yet.
+        show:
+            general_info: General information         
+        new:
+            title: Add category
+            save: Save
+            cancel: Cancel         
+        edit:
+            title: Edit category   
+            save: Save
+            cancel: Cancel
+        action:
+            new: Add a category 
+            edit: Edit
+            delete: Delete            
+        flash:
+            created: The category has been successfully created
+            updated: The category has been successfully updated
+            deleted: The category has been successfully deleted
 
 # Form field labels
 form:

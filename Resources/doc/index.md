@@ -202,7 +202,7 @@ Add the following configuration to your `routing.yml` file:
 ``` yaml
 # app/config/routing.yml
 ir_category:
-    resource: "@IRCategoryBundle/Resources/config/routing.xml"
+    resource: "@IRCategoryBundle/Resources/config/routing/admin/category.xml"
     prefix: /admin/categories
 ```
 

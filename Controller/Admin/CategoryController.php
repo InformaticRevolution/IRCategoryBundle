@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace IR\Bundle\CategoryBundle\Controller;
+namespace IR\Bundle\CategoryBundle\Controller\Admin;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -47,7 +47,7 @@ class CategoryController extends ContainerAware
         
         $categories = $categoryManager->getChildrenCategories($parent, array('position' => 'ASC'));
         
-        return $this->container->get('templating')->renderResponse('IRCategoryBundle:Category:list.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('IRCategoryBundle:Admin/Category:list.html.'.$this->getEngine(), array(
             'path' => $path,
             'parent' => $parent,
             'parentId' => $parentId,
@@ -63,7 +63,7 @@ class CategoryController extends ContainerAware
         $category = $this->findCategoryById($id);
         $path = $this->container->get('ir_category.manager.category')->getCategoryPath($category);
 
-        return $this->container->get('templating')->renderResponse('IRCategoryBundle:Category:show.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('IRCategoryBundle:Admin/Category:show.html.'.$this->getEngine(), array(
             'path' => $path,
             'category' => $category
         ));
@@ -96,10 +96,10 @@ class CategoryController extends ContainerAware
             $dispatcher = $this->container->get('event_dispatcher');                
             $dispatcher->dispatch(IRCategoryEvents::CATEGORY_CREATE_COMPLETED, new CategoryEvent($category));
                 
-            return new RedirectResponse($this->container->get('router')->generate('ir_category_list', array('parentId' => $parentId)));                      
+            return new RedirectResponse($this->container->get('router')->generate('ir_category_admin_category_list', array('parentId' => $parentId)));                      
         }
         
-        return $this->container->get('templating')->renderResponse('IRCategoryBundle:Category:new.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('IRCategoryBundle:Admin/Category:new.html.'.$this->getEngine(), array(
             'parentId' => $parentId,
             'form' => $form->createView(),
         ));          
@@ -124,10 +124,10 @@ class CategoryController extends ContainerAware
             $dispatcher = $this->container->get('event_dispatcher');              
             $dispatcher->dispatch(IRCategoryEvents::CATEGORY_EDIT_COMPLETED, new CategoryEvent($category));
                         
-            return new RedirectResponse($this->container->get('router')->generate('ir_category_list', array('parentId' => $parentId)));                     
+            return new RedirectResponse($this->container->get('router')->generate('ir_category_admin_category_list', array('parentId' => $parentId)));                     
         }        
         
-        return $this->container->get('templating')->renderResponse('IRCategoryBundle:Category:edit.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('IRCategoryBundle:Admin/Category:edit.html.'.$this->getEngine(), array(
             'category' => $category,
             'parentId' => $parentId,
             'form' => $form->createView(),
@@ -148,7 +148,7 @@ class CategoryController extends ContainerAware
         $dispatcher = $this->container->get('event_dispatcher');          
         $dispatcher->dispatch(IRCategoryEvents::CATEGORY_DELETE_COMPLETED, new CategoryEvent($category));
                 
-        return new RedirectResponse($this->container->get('router')->generate('ir_category_list', array('parentId' => $parentId)));  
+        return new RedirectResponse($this->container->get('router')->generate('ir_category_admin_category_list', array('parentId' => $parentId)));  
     }  
     
     /**

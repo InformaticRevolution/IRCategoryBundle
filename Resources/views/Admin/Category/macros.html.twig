@@ -4,12 +4,12 @@
     {% if path is not empty %}
     <ul class="breadcrumb">    
         <li>
-            <a href="{{ path('ir_category_list') }}">{{ 'category.list.title'|trans }}</a> 
+            <a href="{{ path('ir_category_admin_category_list') }}">{{ 'admin.category.list.title'|trans }}</a> 
         </li>
     {% for category in path %}
         {% if not loop.last %}
         <li>
-            <a href="{{ path('ir_category_list', {'parentId': category.id}) }}">
+            <a href="{{ path('ir_category_admin_category_list', {'parentId': category.id}) }}">
                 {{ category }}
             </a> 
         </li>

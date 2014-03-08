@@ -25,9 +25,9 @@ use IR\Bundle\CategoryBundle\IRCategoryEvents;
 class FlashListener implements EventSubscriberInterface
 {
     private static $successMessages = array(
-        IRCategoryEvents::CATEGORY_CREATE_COMPLETED => 'category.flash.created',
-        IRCategoryEvents::CATEGORY_EDIT_COMPLETED => 'category.flash.updated',
-        IRCategoryEvents::CATEGORY_DELETE_COMPLETED => 'category.flash.deleted',         
+        IRCategoryEvents::CATEGORY_CREATE_COMPLETED => 'admin.category.flash.created',
+        IRCategoryEvents::CATEGORY_EDIT_COMPLETED => 'admin.category.flash.updated',
+        IRCategoryEvents::CATEGORY_DELETE_COMPLETED => 'admin.category.flash.deleted',         
     );
 
     /**

@@ -38,7 +38,7 @@ class CategoryControllerTest extends WebTestCase
 
     public function testListAction()
     {
-        $crawler = $this->client->request('GET', '/categories/');
+        $crawler = $this->client->request('GET', '/admin/categories/');
 
         $this->assertResponseStatusCode(200);
         $this->assertCount(6, $crawler->filter('ul.list-group li'));
@@ -46,7 +46,7 @@ class CategoryControllerTest extends WebTestCase
     
     public function testListActionWithParentCategory()
     {
-        $crawler = $this->client->request('GET', '/categories/?parentId=1');
+        $crawler = $this->client->request('GET', '/admin/categories/?parentId=1');
 
         $this->assertResponseStatusCode(200);
         $this->assertCount(3, $crawler->filter('ul.list-group li'));
@@ -54,14 +54,14 @@ class CategoryControllerTest extends WebTestCase
     
     public function testShowAction()
     {
-        $this->client->request('GET', '/categories/1');
+        $this->client->request('GET', '/admin/categories/1');
         
         $this->assertResponseStatusCode(200);
     }      
     
     public function testNewActionGetMethod()
     {
-        $crawler = $this->client->request('GET', '/categories/new');
+        $crawler = $this->client->request('GET', '/admin/categories/new');
         
         $this->assertResponseStatusCode(200);
         $this->assertCount(1, $crawler->filter('form'));
@@ -69,7 +69,7 @@ class CategoryControllerTest extends WebTestCase
     
     public function testNewActionPostMethod()
     {        
-        $this->client->request('POST', '/categories/new', array(
+        $this->client->request('POST', '/admin/categories/new', array(
             'ir_category_form' => array (
                 'name' => 'Category 1',
                 '_token' => $this->generateCsrfToken(static::FORM_INTENTION),
@@ -81,14 +81,14 @@ class CategoryControllerTest extends WebTestCase
         $crawler = $this->client->followRedirect();
         
         $this->assertResponseStatusCode(200);
-        $this->assertCurrentUri('/categories/');
+        $this->assertCurrentUri('/admin/categories/');
         $this->assertCount(7, $crawler->filter('ul.list-group li'));
         $this->assertRegExp('~Category 1~', $crawler->filter('ul.list-group')->text());        
     }
     
     public function testNewActionPostMethodWithParentCategory()
     {        
-        $this->client->request('POST', '/categories/new?parentId=1', array(
+        $this->client->request('POST', '/admin/categories/new?parentId=1', array(
             'ir_category_form' => array (
                 'name' => 'Category 1',
                 '_token' => $this->generateCsrfToken(static::FORM_INTENTION),
@@ -100,14 +100,14 @@ class CategoryControllerTest extends WebTestCase
         $crawler = $this->client->followRedirect();
         
         $this->assertResponseStatusCode(200);
-        $this->assertCurrentUri('/categories/?parentId=1');
+        $this->assertCurrentUri('/admin/categories/?parentId=1');
         $this->assertCount(4, $crawler->filter('ul.list-group li'));
         $this->assertRegExp('~Category 1~', $crawler->filter('ul.list-group')->text());        
     }    
     
     public function testEditActionGetMethod()
     {   
-        $crawler = $this->client->request('GET', '/categories/1/edit');
+        $crawler = $this->client->request('GET', '/admin/categories/1/edit');
         
         $this->assertResponseStatusCode(200);
         $this->assertCount(1, $crawler->filter('form'));        
@@ -115,7 +115,7 @@ class CategoryControllerTest extends WebTestCase
     
     public function testEditActionPostMethod()
     {        
-        $this->client->request('POST', '/categories/1/edit', array(
+        $this->client->request('POST', '/admin/categories/1/edit', array(
             'ir_category_form' => array (
                 'name' => 'Category 1',
                 '_token' => $this->generateCsrfToken(static::FORM_INTENTION),
@@ -127,14 +127,14 @@ class CategoryControllerTest extends WebTestCase
         $crawler = $this->client->followRedirect();
         
         $this->assertResponseStatusCode(200);
-        $this->assertCurrentUri('/categories/');
+        $this->assertCurrentUri('/admin/categories/');
         $this->assertCount(6, $crawler->filter('ul.list-group li'));
         $this->assertRegExp('~Category 1~', $crawler->filter('ul.list-group')->text());      
     }
     
     public function testEditActionPostMethodWithParentCategory()
     {        
-        $this->client->request('POST', '/categories/7/edit', array(
+        $this->client->request('POST', '/admin/categories/7/edit', array(
             'ir_category_form' => array (
                 'name' => 'Category 1',
                 '_token' => $this->generateCsrfToken(static::FORM_INTENTION),
@@ -146,55 +146,55 @@ class CategoryControllerTest extends WebTestCase
         $crawler = $this->client->followRedirect();
         
         $this->assertResponseStatusCode(200);
-        $this->assertCurrentUri('/categories/?parentId=1');
+        $this->assertCurrentUri('/admin/categories/?parentId=1');
         $this->assertCount(3, $crawler->filter('ul.list-group li'));
         $this->assertRegExp('~Category 1~', $crawler->filter('ul.list-group')->text());        
     }      
     
     public function testDeleteAction()
     {
-        $this->client->request('GET', '/categories/1/delete');
+        $this->client->request('GET', '/admin/categories/1/delete');
         
         $this->assertResponseStatusCode(302);
         
         $crawler = $this->client->followRedirect();
         
         $this->assertResponseStatusCode(200);
-        $this->assertCurrentUri('/categories/');
+        $this->assertCurrentUri('/admin/categories/');
         $this->assertCount(5, $crawler->filter('ul.list-group li'));
     }     
 
     public function testMoveAction()
     {        
-        $this->client->request('GET', '/categories/1/move?position=3');
+        $this->client->request('GET', '/admin/categories/1/move?position=3');
 
         $this->assertResponseStatusCode(200);
         $this->assertResponseContentType('application/json');
         $this->assertJsonResponseContent(json_encode(array('success' => true)));
         
-        $crawler = $this->client->request('GET', '/categories/');
+        $crawler = $this->client->request('GET', '/admin/categories/');
         
         $this->assertEquals(array(2, 3, 4, 1, 5, 6), $crawler->filter('ul.list-group li')->extract('data-category'));
     }    
     
     public function testNotFoundHttpWhenCategoryNotExist()
     {   
-        $this->client->request('GET', '/categories/?parentId=foo');
+        $this->client->request('GET', '/admin/categories/?parentId=foo');
         $this->assertResponseStatusCode(404); 
         
-        $this->client->request('GET', '/categories/foo');
+        $this->client->request('GET', '/admin/categories/foo');
         $this->assertResponseStatusCode(404);         
         
-        $this->client->request('GET', '/categories/new/foo');
+        $this->client->request('GET', '/admin/categories/new/foo');
         $this->assertResponseStatusCode(404);        
         
-        $this->client->request('GET', '/categories/foo/edit');
+        $this->client->request('GET', '/admin/categories/foo/edit');
         $this->assertResponseStatusCode(404);
         
-        $this->client->request('GET', '/categories/foo/delete');
+        $this->client->request('GET', '/admin/categories/foo/delete');
         $this->assertResponseStatusCode(404); 
         
-        $this->client->request('GET', '/categories/foo/move');
+        $this->client->request('GET', '/admin/categories/foo/move');
         $this->assertResponseStatusCode(404);         
     }  
     

@@ -1,4 +1,4 @@
-{% import 'IRCategoryBundle:Category:macros.html.twig' as macros %}
+{% import 'IRCategoryBundle:Admin/Category:macros.html.twig' as macros %}
 
 {% trans_default_domain 'ir_category' %}
 
@@ -7,7 +7,7 @@
         {% if parent %}
             {{ parent }}
         {% else %}
-            {{ 'category.list.title'|trans }}
+            {{ 'admin.category.list.title'|trans }}
         {% endif %}
     </h1>
 </div>
@@ -16,8 +16,8 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <a href="{{ path('ir_category_new', {'parentId' : parentId}) }}" class="btn btn-primary">
-            <i class="glyphicon glyphicon-plus"></i> {{ 'category.action.new'|trans }}
+        <a href="{{ path('ir_category_admin_category_new', {'parentId' : parentId}) }}" class="btn btn-primary">
+            <i class="glyphicon glyphicon-plus"></i> {{ 'admin.category.action.new'|trans }}
         </a>    
     </div>
         
@@ -26,18 +26,18 @@
         {% for category in categories %}
         <li class="list-group-item clearfix" data-category="{{ category.id }}">
             <div class="pull-left">
-                <a href="{{ path('ir_category_list', {'parentId': category.id}) }}" class="btn btn-link">
+                <a href="{{ path('ir_category_admin_category_list', {'parentId': category.id}) }}" class="btn btn-link">
                     {{ category.name }}
                 </a> 
             </div>
             <div class="pull-right">
-                <a href="{{ path('ir_category_show', {'id': category.id}) }}" class="btn btn-default">
+                <a href="{{ path('ir_category_admin_category_show', {'id': category.id}) }}" class="btn btn-default">
                     <i class="glyphicon glyphicon-list"></i>
                 </a>                        
-                <a href="{{ path('ir_category_edit', {'id': category.id}) }}" class="btn btn-primary">
+                <a href="{{ path('ir_category_admin_category_edit', {'id': category.id}) }}" class="btn btn-primary">
                     <i class="glyphicon glyphicon-edit"></i>
                 </a>                         
-                <a href="{{ path('ir_category_delete', {'id': category.id}) }}" class="btn btn-danger">
+                <a href="{{ path('ir_category_admin_category_delete', {'id': category.id}) }}" class="btn btn-danger">
                     <i class="glyphicon glyphicon-trash"></i>
                 </a>
             </div>                
@@ -46,13 +46,13 @@
     </ul>
     {% else %}
     <div class="panel-body">
-        {{ 'category.list.no_results'|trans }}
+        {{ 'admin.category.list.no_results'|trans }}
     </div>
     {% endif %}
         
     <div class="panel-footer">
-        <a href="{{ path('ir_category_new', {'parentId' : parentId}) }}" class="btn btn-primary">
-            <i class="glyphicon glyphicon-plus"></i> {{ 'category.action.new'|trans }}
+        <a href="{{ path('ir_category_admin_category_new', {'parentId' : parentId}) }}" class="btn btn-primary">
+            <i class="glyphicon glyphicon-plus"></i> {{ 'admin.category.action.new'|trans }}
         </a>    
     </div>        
 </div>

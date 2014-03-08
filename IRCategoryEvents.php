@@ -23,19 +23,19 @@ final class IRCategoryEvents
      *
      * The event listener method receives a IR\Bundle\CategoryBundle\Event\CategoryEvent instance.
      */
-    const CATEGORY_CREATE_COMPLETED = 'ir_category.category.create.completed';
+    const CATEGORY_CREATE_COMPLETED = 'ir_category.admin.category.create.completed';
     
     /**
      * The CATEGORY_EDIT_COMPLETED event occurs after saving the category in the category edit process.
      *
      * The event listener method receives a IR\Bundle\CategoryBundle\Event\CategoryEvent instance.
      */
-    const CATEGORY_EDIT_COMPLETED = 'ir_category.category.edit.completed';
+    const CATEGORY_EDIT_COMPLETED = 'ir_category.admin.category.edit.completed';
     
     /**
      * The CATEGORY_DELETE_COMPLETED event occurs after deleting the category.
      *
      * The event listener method receives a IR\Bundle\CategoryBundle\Event\CategoryEvent instance.
      */
-    const CATEGORY_DELETE_COMPLETED = 'ir_category.category.delete.completed'; 
+    const CATEGORY_DELETE_COMPLETED = 'ir_category.admin.category.delete.completed'; 
 }
