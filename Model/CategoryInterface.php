@@ -98,6 +98,20 @@ interface CategoryInterface
     public function setPosition($position);
 
     /**
+     * Returns the level depth.
+     * 
+     * @return integer
+     */
+    public function getLevelDepth();
+    
+    /**
+     * Sets the level depth.
+     * 
+     * @param integer $levelDepth
+     */
+    public function setLevelDepth($levelDepth);
+    
+    /**
      * Returns all the chidren.
      *
      * @return Collection

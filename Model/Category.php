@@ -186,6 +186,22 @@ abstract class Category implements CategoryInterface
     /**
      * {@inheritdoc}
      */
+    public function getLevelDepth()
+    {
+        return $this->levelDepth;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function setLevelDepth($levelDepth)
+    {
+        $this->levelDepth = $levelDepth;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
     public function getChildren()
     {   
         return $this->children;

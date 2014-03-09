@@ -89,6 +89,7 @@ class CategoryTest extends \PHPUnit_Framework_TestCase
             array('permalink', 'category/subcategory', null),
             array('parent', $this->getCategory(), null),
             array('position', 2, null),
+            array('levelDepth', 1, null),
             array('createdAt', new \DateTime(), null),
             array('updatedAt', new \DateTime(), null),            
         );
