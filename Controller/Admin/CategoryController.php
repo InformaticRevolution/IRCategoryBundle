@@ -22,7 +22,7 @@ use IR\Bundle\CategoryBundle\Event\CategoryEvent;
 use IR\Bundle\CategoryBundle\Model\CategoryInterface;
 
 /**
- * Controller managing the categories.
+ * Admin controller managing the categories.
  *
  * @author Julien Kirsch <informatic.revolution@gmail.com>
  */
