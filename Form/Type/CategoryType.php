@@ -47,8 +47,7 @@ class CategoryType extends AbstractType
             ->add('name', null, array(                 
                 'label' => 'form.category.name',
                 'translation_domain' => 'ir_category',
-            ))   
-        ;
+            ));
     }
    
     /**

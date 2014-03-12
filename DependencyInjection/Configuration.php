@@ -48,8 +48,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->scalarNode('category_class')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('category_manager')->defaultValue('ir_category.manager.category.default')->end()
-            ->end()
-        ;    
+            ->end();
 
         $this->addCategorySection($rootNode);
         $this->addTemplateSection($rootNode);        
@@ -78,8 +77,7 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-            ->end()
-        ;
+            ->end();
     }
 
     private function addTemplateSection(ArrayNodeDefinition $node)
@@ -92,7 +90,6 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('engine')->defaultValue('twig')->end()
                     ->end()
                 ->end()
-            ->end()
-        ;
+            ->end();
     }     
 }
